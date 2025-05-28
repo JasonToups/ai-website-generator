@@ -72,13 +72,13 @@ Design Planning (UX)      ↗
 
 ### Request Processing Flow
 
-1. **User Input**: Natural language or structured requirements
-2. **Preprocessing**: Parse and validate input requirements
-3. **Agent Assignment**: Distribute tasks based on agent capabilities
-4. **Collaboration**: Agents work together with shared context
-5. **Generation**: Create React components and project structure
-6. **Validation**: Quality checks and best practice verification
-7. **Output**: Complete React project ready for download
+1. **User Input**: Natural language description of desired application
+2. **Natural Language Processing**: Parse and extract requirements from user description
+3. **Agent Assignment**: Distribute tasks based on agent capabilities and application type
+4. **Collaboration**: Agents work together with shared context to build simple React applications
+5. **Generation**: Create React components using ShadCN/UI and basic state management
+6. **Validation**: Quality checks and best practice verification for simple applications
+7. **Output**: Complete simple React project ready for download
 
 ### Context Management
 

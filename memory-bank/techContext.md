@@ -43,9 +43,9 @@
 
 #### State Management and Data
 
-- **React Query/TanStack Query**: Server state management
-- **Zustand**: Client state management
+- **React Built-ins**: useState, useContext, useReducer for state management
 - **Axios**: HTTP client for API communication
+- **JSON Files**: Simple file-based data storage for MVP
 
 ## Development Environment
 

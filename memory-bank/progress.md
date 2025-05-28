@@ -36,18 +36,22 @@
 #### Planned Tasks
 
 - [ ] Initialize Poetry environment with pyproject.toml
-- [ ] Set up basic project structure
+- [ ] Set up basic project structure for simple React app generation
 - [ ] Configure environment variables (.env for Anthropic API key)
 - [ ] Install CrewAI and core dependencies
 - [ ] Create basic FastAPI application structure
+- [ ] Set up JSON file storage system for MVP
+- [ ] Configure natural language processing pipeline
 - [ ] Set up development workflow and scripts
 
 #### Success Criteria
 
 - Poetry environment working with all dependencies
-- Basic project structure matches planned architecture
+- Basic project structure matches planned architecture for simple apps
 - Environment variables properly configured
 - FastAPI server can start successfully
+- JSON storage system functional
+- Natural language input processing ready
 - Development workflow documented and tested
 
 ---
