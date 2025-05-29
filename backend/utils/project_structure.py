@@ -48,8 +48,8 @@ class ProjectStructureManager:
                     'is_valid': file_info['is_valid']
                 })
             
-            # Create file manifest
-            manifest = self._create_file_manifest(parsed_files, created_files, created_directories)
+            # Create file manifest - convert set to list for JSON serialization
+            manifest = self._create_file_manifest(parsed_files, created_files, list(created_directories))
             manifest_path = self.project_path / "parsed_files.json"
             
             with open(manifest_path, 'w', encoding='utf-8') as f:
@@ -327,7 +327,8 @@ def create_project_structure(project_id: str, parsed_files: Dict[str, Any]) -> D
         'zip_result': zip_result,
         'project_path': folder_result['project_path'],
         'zip_path': zip_result.get('zip_path'),
-        'total_files': folder_result['total_files']
+        'total_files': folder_result['total_files'],
+        'zip_created': zip_result['success']
     }
 
 

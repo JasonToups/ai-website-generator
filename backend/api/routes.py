@@ -248,11 +248,11 @@ async def _generate_website_task(
         if result.get("success"):
             # PHASE 3 ENHANCEMENT: Add automatic file parsing
             try:
-                # Get the crew output for parsing
-                crew_output = result.get("output", "")
+                # Get the crew output for parsing - FIXED: use "result" not "output"
+                crew_output = result.get("result", "")
                 if crew_output:
                     # Parse files and create structure
-                    parser = ProjectFileParser(crew_output, project_id)
+                    parser = ProjectFileParser(str(crew_output), project_id)
                     parsed_result = parser.parse()
                     
                     if parsed_result['success']:

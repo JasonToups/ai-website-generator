@@ -1,0 +1,165 @@
+{
+  "project_id": "b216ae3e-94ac-49b3-a986-21ee86ecb56f",
+  "parsing_results": {
+    "file_count": 9,
+    "success": true,
+    "parsing_errors": []
+  },
+  "project_structure": {
+    "name": "project-b216ae3e-94ac-49b3-a986-21ee86ecb56f",
+    "type": "folder",
+    "children": [
+      {
+        "name": "src",
+        "type": "folder",
+        "children": [
+          {
+            "name": "components",
+            "type": "folder",
+            "children": [
+              {
+                "name": "About.tsx",
+                "type": "file",
+                "path": "src/components/About.tsx",
+                "extension": ".tsx",
+                "size": 2524,
+                "is_valid": true
+              },
+              {
+                "name": "Contact.tsx",
+                "type": "file",
+                "path": "src/components/Contact.tsx",
+                "extension": ".tsx",
+                "size": 5423,
+                "is_valid": true
+              },
+              {
+                "name": "Footer.tsx",
+                "type": "file",
+                "path": "src/components/Footer.tsx",
+                "extension": ".tsx",
+                "size": 2196,
+                "is_valid": true
+              },
+              {
+                "name": "Gallery.tsx",
+                "type": "file",
+                "path": "src/components/Gallery.tsx",
+                "extension": ".tsx",
+                "size": 3016,
+                "is_valid": true
+              },
+              {
+                "name": "Hero.tsx",
+                "type": "file",
+                "path": "src/components/Hero.tsx",
+                "extension": ".tsx",
+                "size": 2508,
+                "is_valid": true
+              },
+              {
+                "name": "Navbar.tsx",
+                "type": "file",
+                "path": "src/components/Navbar.tsx",
+                "extension": ".tsx",
+                "size": 3091,
+                "is_valid": true
+              }
+            ]
+          },
+          {
+            "name": "App.tsx",
+            "type": "file",
+            "path": "src/App.tsx",
+            "extension": ".tsx",
+            "size": 966,
+            "is_valid": true
+          }
+        ]
+      },
+      {
+        "name": "package.json",
+        "type": "file",
+        "path": "package.json",
+        "extension": ".json",
+        "size": 1131,
+        "is_valid": true
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "README.md",
+        "extension": ".md",
+        "size": 710,
+        "is_valid": true
+      }
+    ]
+  },
+  "created_files": [
+    {
+      "path": "src/App.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/App.tsx",
+      "size": 966,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Navbar.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/Navbar.tsx",
+      "size": 3091,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Hero.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/Hero.tsx",
+      "size": 2508,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/About.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/About.tsx",
+      "size": 2524,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Gallery.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/Gallery.tsx",
+      "size": 3016,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Contact.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/Contact.tsx",
+      "size": 5423,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Footer.tsx",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/src/components/Footer.tsx",
+      "size": 2196,
+      "is_valid": true
+    },
+    {
+      "path": "package.json",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/package.json",
+      "size": 1131,
+      "is_valid": true
+    },
+    {
+      "path": "README.md",
+      "full_path": "generated/projects/b216ae3e-94ac-49b3-a986-21ee86ecb56f/files/README.md",
+      "size": 710,
+      "is_valid": true
+    }
+  ],
+  "created_directories": [
+    "src/components",
+    "src"
+  ],
+  "file_types": {
+    ".tsx": 7,
+    ".json": 1,
+    ".md": 1
+  },
+  "total_size": 21565,
+  "creation_timestamp": "2025-05-29T09:18:42.740449"
+}
