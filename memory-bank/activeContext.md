@@ -1,10 +1,11 @@
-# Active Context - Project Gallery Implementation
+# Active Context - React Router Preview Integration
 
-## 🎯 **Current Focus: Phase 5 - Project Gallery Implementation**
+## 🎯 **Current Focus: Phase 6 - In-App Project Previews with React Router**
 
 **Date**: May 29, 2025  
-**Priority**: HIGH - Main development focus  
-**Status**: Ready to implement - Planning complete
+**Priority**: HIGH - User Experience Enhancement  
+**Status**: Ready to implement - Planning complete  
+**Trigger**: User feedback that external preview servers break application flow
 
 ---
 
@@ -12,316 +13,439 @@
 
 ### **What We Have Working** ✅
 
-1. **Backend Services**:
+1. **Phase 5 Gallery - COMPLETED** ✅:
+
+   - ✅ Beautiful project gallery with grid layout
+   - ✅ Search and filtering functionality
+   - ✅ Project cards with metadata display
+   - ✅ Download functionality (ZIP downloads)
+   - ✅ Project deletion with confirmation
+   - ✅ Responsive design on all devices
+   - ✅ Tab navigation (Gallery | Dashboard)
+
+2. **Backend Services**:
 
    - ✅ FastAPI server running on http://localhost:8000
    - ✅ CrewAI agents generating websites successfully
    - ✅ File parsing and project structure creation (Phase 3)
    - ✅ Live preview system (Phase 4)
-   - ✅ 7 completed projects with generated files
+   - ✅ Gallery API endpoints (Phase 5)
+   - ✅ Multiple completed projects available
 
-2. **Frontend Application**:
-
+3. **Frontend Application**:
    - ✅ React app running on http://localhost:3000
-   - ✅ Basic generation form working
-   - ✅ Real-time progress tracking
-   - ✅ Simple project list (limited to 5 recent)
+   - ✅ Tab-based navigation (Gallery | Dashboard)
+   - ✅ Project gallery with beautiful grid layout
+   - ✅ Real-time progress tracking in Dashboard
+   - ✅ Project management actions working
 
-3. **Generated Projects Available**:
-   - `b216ae3e-94ac-49b3-a986-21ee86ecb56f` - Photographer Portfolio (✅ Complete)
-   - `9e5c696f-96e4-445a-8bd9-a909b0b37a33` - E-commerce Jewelry Website (✅ Complete)
-   - `66d766ee-909c-4d2c-a2a6-ddf1b2c72aad` - Portfolio Website (✅ Complete)
-   - Plus 4 additional projects
+### **Current Issue** ❌
 
-### **What's Missing** ❌
+1. **External Preview Problem**:
+   - ❌ Preview buttons open external servers (localhost:3001, 3002, 3003)
+   - ❌ Users lose context when previewing projects
+   - ❌ New browser tabs/windows break the user flow
+   - ❌ No easy navigation back to gallery
 
-1. **Project Gallery Interface**:
+### **User Experience Gap**
 
-   - ❌ No dedicated gallery view
-   - ❌ No project thumbnails/previews
-   - ❌ No preview functionality from frontend
-   - ❌ No download buttons
-   - ❌ No project management actions
+**Current Flow** (Problematic):
 
-2. **Enhanced Backend APIs**:
-   - ❌ Gallery metadata endpoint
-   - ❌ Thumbnail generation
-   - ❌ Project deletion endpoint
-   - ❌ Enhanced project information
+```
+Gallery → Click Preview → New Tab (localhost:3003) → Lost Context
+```
+
+**Target Flow** (Seamless):
+
+```
+Gallery → Click Preview → /preview/project-id → Back to Gallery
+```
 
 ---
 
-## 🎨 **User Experience Gap**
+## 🎨 **Phase 6 Solution: React Router Integration**
 
-### **Current User Experience** (Basic)
+### **Core Concept**
+
+Replace external preview servers with in-app routing system that keeps users within the main application while providing full project previews.
+
+### **Technical Approach**
+
+#### **Frontend Changes**
+
+- **React Router**: Add routing with `/preview/:projectId` route
+- **ProjectPreview Component**: New full-screen preview component
+- **Navigation**: Breadcrumbs and back buttons for seamless navigation
+- **Iframe Rendering**: Serve project content through dedicated API endpoint
+
+#### **Backend Changes**
+
+- **Preview Content API**: New endpoint to serve project HTML for iframe
+- **Asset Serving**: Endpoint to serve project CSS/JS/images
+- **CORS Handling**: Proper headers for iframe embedding
+
+### **User Experience Enhancement**
+
+#### **Before (Phase 5)**
 
 ```
-User visits localhost:3000
-├── Sees generation form
-├── Can create new websites
-├── Views simple list of 5 recent projects
-└── No way to preview or manage existing projects
+Gallery Tab
+├── Project Cards with Preview Buttons
+└── Click Preview → External Tab (localhost:3003)
 ```
 
-### **Target User Experience** (Gallery)
+#### **After (Phase 6)**
 
 ```
-User visits localhost:3000
-├── 🏠 Dashboard Tab (Current generation)
-├── 🖼️ Gallery Tab (NEW - Main focus)
-│   ├── Grid of project cards with thumbnails
-│   ├── Preview buttons for each project
-│   ├── Download options
-│   ├── Search and filter capabilities
-│   └── Project management actions
-└── Full preview integration with Phase 4 system
+App with Router
+├── /gallery → Gallery Tab
+├── /dashboard → Dashboard Tab
+└── /preview/:id → Full-screen Project Preview
+    ├── Iframe with project content
+    ├── Breadcrumb navigation
+    ├── Action toolbar
+    └── Back to gallery button
 ```
 
 ---
 
 ## 🏗️ **Implementation Strategy**
 
-### **Phase 5.1: Core Gallery Structure** (This Week)
+### **Phase 6.1: Router Foundation** (Day 1)
 
-#### **Step 1: Navigation Enhancement**
+#### **Step 1: Install React Router**
 
-- Add tab navigation to main app
-- Create Gallery and Dashboard sections
-- Maintain current generation form in Dashboard
+```bash
+cd frontend
+npm install react-router-dom @types/react-router-dom
+```
+
+#### **Step 2: Router Setup**
+
+- Update `main.tsx` with BrowserRouter
+- Refactor `App.tsx` to use Routes
+- Create route structure for gallery, dashboard, preview
+
+#### **Step 3: Navigation Update**
+
+- Update gallery preview buttons to use `navigate()`
+- Test basic route transitions
+
+### **Phase 6.2: Preview Component** (Day 1-2)
+
+#### **Step 1: ProjectPreview Component**
+
+```typescript
+// New component: frontend/src/components/Preview/ProjectPreview.tsx
+const ProjectPreview = () => {
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+
+  // Load project data
+  // Render iframe with project content
+  // Add navigation and actions
+};
+```
 
 #### **Step 2: Backend API Enhancement**
 
-```typescript
-// New endpoint: GET /api/v1/projects/gallery
-{
-  projects: [
-    {
-      project_id: string,
-      title: string,
-      description: string,
-      status: string,
-      created_at: string,
-      file_count: number,
-      has_preview: boolean,
-      thumbnail_url?: string,
-      preview_url?: string,
-      download_url: string,
-      metadata: {
-        website_type: string,
-        technologies: string[],
-        file_size: number
-      }
-    }
-  ],
-  total: number
-}
+```python
+# New endpoints in backend/api/routes.py
+@router.get("/projects/{project_id}/preview-content")
+@router.get("/projects/{project_id}/assets/{file_path:path}")
 ```
 
-#### **Step 3: Core Gallery Components**
+#### **Step 3: Integration**
 
-```
-frontend/src/components/
-├── Gallery/
-│   ├── PreviewGallery.tsx      (Main gallery container)
-│   ├── ProjectCard.tsx         (Individual project cards)
-│   ├── ProjectPreviewModal.tsx (Preview popup)
-│   └── ProjectThumbnail.tsx    (Thumbnail display)
-└── Navigation/
-    └── AppTabs.tsx             (Tab navigation)
-```
+- Connect preview component to backend APIs
+- Test iframe rendering with one project
+- Verify asset loading (CSS, JS, images)
 
-#### **Step 4: Basic Project Cards**
+### **Phase 6.3: Navigation & Polish** (Day 2-3)
 
-- Grid layout with project cards
-- Project metadata display
-- Status indicators
-- Basic action buttons (Preview, Download)
+#### **Step 1: Navigation Enhancement**
 
-### **Phase 5.2: Preview Integration** (Next)
+- Add breadcrumb navigation
+- Implement back button functionality
+- Add action toolbar (download, share, settings)
 
-#### **Step 1: Modal Preview System**
+#### **Step 2: Responsive Design**
 
-- Embedded iframe preview in modal
-- Integration with Phase 4 live preview
-- Quick preview without leaving gallery
+- Mobile-responsive preview layout
+- Device preview modes (mobile, tablet, desktop)
+- Touch-friendly navigation
 
-#### **Step 2: Thumbnail Generation**
+#### **Step 3: Testing & Optimization**
 
-- Automatic screenshot capture
-- Fallback images for projects without previews
-- Thumbnail caching system
-
-#### **Step 3: Enhanced Actions**
-
-- Full preview in new tab
-- ZIP download functionality
-- Project deletion with confirmation
-- Project metadata editing
+- Test with all existing projects
+- Performance optimization
+- Error handling and loading states
 
 ---
 
 ## 🔧 **Technical Implementation Plan**
 
-### **Backend Changes Required**
+### **Frontend Architecture**
 
-1. **Enhanced Project API** (`backend/api/routes.py`):
+#### **Router Structure**
 
-   ```python
-   @router.get("/projects/gallery")
-   async def get_project_gallery():
-       # Return enhanced project data with metadata
+```typescript
+<Routes>
+  <Route path="/" element={<Navigate to="/gallery" replace />} />
+  <Route path="/gallery" element={<GalleryPage />} />
+  <Route path="/dashboard" element={<DashboardPage />} />
+  <Route path="/preview/:projectId" element={<ProjectPreview />} />
+</Routes>
+```
 
-   @router.delete("/projects/{project_id}")
-   async def delete_project(project_id: str):
-       # Delete project and all associated files
+#### **Component Structure**
 
-   @router.get("/projects/{project_id}/thumbnail")
-   async def get_project_thumbnail(project_id: str):
-       # Return project thumbnail/screenshot
-   ```
+```
+frontend/src/
+├── components/
+│   ├── Gallery/
+│   │   ├── PreviewGallery.tsx (existing)
+│   │   └── ProjectCard.tsx (existing)
+│   ├── Preview/ (NEW)
+│   │   ├── ProjectPreview.tsx
+│   │   ├── PreviewToolbar.tsx
+│   │   └── PreviewBreadcrumbs.tsx
+│   └── Navigation/
+│       └── Header.tsx (updated)
+└── pages/
+    ├── GalleryPage.tsx (NEW)
+    ├── DashboardPage.tsx (NEW)
+    └── PreviewPage.tsx (NEW)
+```
 
-2. **Project Metadata Enhancement** (`backend/utils/project_manager.py`):
-   - Extract website type from generated files
-   - Calculate file counts and sizes
-   - Determine preview availability
-   - Generate thumbnail URLs
+### **Backend API Enhancement**
 
-### **Frontend Changes Required**
+#### **New Endpoints**
 
-1. **App Structure Refactor** (`frontend/src/App.tsx`):
+```python
+# Preview content serving
+GET /api/v1/projects/{project_id}/preview-content
+GET /api/v1/projects/{project_id}/assets/{file_path:path}
 
-   ```typescript
-   // Current: Single page with generation form
-   // New: Tabbed interface with Dashboard + Gallery
+# Enhanced project metadata
+GET /api/v1/projects/{project_id}/preview-info
+```
 
-   const [activeTab, setActiveTab] = useState<'dashboard' | 'gallery'>('gallery');
-   ```
+#### **Implementation Details**
 
-2. **New Components**:
-
-   ```typescript
-   // PreviewGallery.tsx - Main gallery component
-   interface PreviewGalleryProps {
-     projects: Project[];
-     onProjectPreview: (projectId: string) => void;
-     onProjectDownload: (projectId: string) => void;
-     onProjectDelete: (projectId: string) => void;
-   }
-
-   // ProjectCard.tsx - Individual project display
-   interface ProjectCardProps {
-     project: Project;
-     onPreview: () => void;
-     onDownload: () => void;
-     onDelete: () => void;
-   }
-   ```
+- Serve HTML content with proper base URLs
+- Handle CSS/JS asset serving with correct MIME types
+- Add CORS headers for iframe embedding
+- Security checks for file access
 
 ---
 
-## 🎯 **Immediate Next Steps**
+## 🎯 **Success Criteria**
 
-### **Today's Tasks**
+### **User Experience Goals**
 
-1. **Backend Enhancement**:
+- [ ] **Seamless Navigation**: No context loss when previewing projects
+- [ ] **Fast Loading**: Preview loads in under 2 seconds
+- [ ] **Intuitive Controls**: Clear navigation back to gallery
+- [ ] **Responsive Design**: Works perfectly on all device sizes
 
-   - [ ] Create `/api/v1/projects/gallery` endpoint
-   - [ ] Add project metadata extraction
-   - [ ] Implement basic thumbnail system
-   - [ ] Add project deletion endpoint
+### **Technical Goals**
 
-2. **Frontend Structure**:
+- [ ] **Router Integration**: Clean URL structure with shareable links
+- [ ] **Performance**: No impact on main application performance
+- [ ] **Reliability**: 99% preview success rate for all projects
+- [ ] **Compatibility**: Works with all existing generated projects
 
-   - [ ] Add tab navigation to App.tsx
-   - [ ] Create PreviewGallery component
-   - [ ] Design ProjectCard component
-   - [ ] Implement basic grid layout
+### **Feature Completeness**
 
-3. **Integration**:
-   - [ ] Connect gallery to backend API
-   - [ ] Add preview modal functionality
-   - [ ] Implement download actions
-   - [ ] Test with existing projects
-
-### **Success Criteria for Today**
-
-- [ ] Gallery tab visible in main app
-- [ ] All 7 projects displayed in grid layout
-- [ ] Basic preview functionality working
-- [ ] Download buttons functional
-- [ ] Responsive design on desktop/mobile
+- [ ] **All Projects Previewable**: Every project can be previewed in-app
+- [ ] **Full Functionality**: All preview features working smoothly
+- [ ] **Navigation**: Smooth transitions between gallery and preview
+- [ ] **Actions**: Download, share, settings accessible from preview
 
 ---
 
 ## 🔄 **Integration with Existing Systems**
 
-### **Phase 4 Live Preview Integration**
+### **Phase 5 Gallery Integration**
 
-- Use existing preview server for live previews
-- Generate preview URLs for gallery cards
-- Show preview status in project cards
+- Update preview buttons in ProjectCard components
+- Maintain all existing gallery functionality
+- Preserve search, filter, and management features
+- Keep download and delete actions working
+
+### **Phase 4 Live Preview System**
+
+- Maintain external preview as fallback option
+- Use existing project structure and file serving
+- Leverage Phase 4 APIs for project validation
+- Keep preview server management for advanced use cases
 
 ### **Phase 3 File System Integration**
 
-- Use parsed file data for project metadata
+- Use existing file parsing and structure creation
 - Leverage ZIP generation for downloads
-- Display file counts and types
-
-### **Current Generation Workflow**
-
-- Maintain existing generation form in Dashboard tab
-- Auto-refresh gallery when new projects complete
-- Seamless transition from generation to gallery
+- Utilize file validation and metadata extraction
+- Maintain project organization and storage
 
 ---
 
 ## 📱 **User Interface Design**
 
-### **Gallery Layout**
+### **ProjectPreview Layout**
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ 🏠 Dashboard | 🖼️ Gallery                              │
+│ ← Gallery | Project Preview: PhotoLens Portfolio    [⚙️] │
 ├─────────────────────────────────────────────────────────┤
-│ 🔍 Search: [____________] 📅 Filter: [All▼]            │
+│ [🔍] [⬇️] [🔗] [⚙️]                          [📱] [💻] [🖥️] │
 ├─────────────────────────────────────────────────────────┤
-│ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐         │
-│ │ 📸      │ │ 📸      │ │ 📸      │ │ 📸      │         │
-│ │Preview  │ │Preview  │ │Preview  │ │Preview  │         │
-│ │         │ │         │ │         │ │         │         │
-│ │Photo    │ │Jewelry  │ │Portfolio│ │Landing  │         │
-│ │Portfolio│ │E-comm   │ │Site     │ │Page     │         │
-│ │[👁️][⬇️][🗑️]│ │[👁️][⬇️][🗑️]│ │[👁️][⬇️][🗑️]│ │[👁️][⬇️][🗑️]│         │
-│ └─────────┘ └─────────┘ └─────────┘ └─────────┘         │
+│                                                         │
+│                                                         │
+│              PROJECT PREVIEW IFRAME                     │
+│                                                         │
+│                                                         │
+│                                                         │
+│                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### **Project Card Design**
+### **Navigation Elements**
 
-```
-┌─────────────────────────────────┐
-│ 📸 [Thumbnail/Screenshot]       │
-│                                 │
-│ 🏷️ Photographer Portfolio       │
-│ 📅 May 29, 2025                │
-│ 📊 ✅ Completed                 │
-│ 📁 9 files • 2.3 MB            │
-│                                 │
-│ [👁️ Preview] [⬇️ Download] [🗑️]   │
-└─────────────────────────────────┘
-```
+- **Breadcrumbs**: Gallery > Project Preview
+- **Back Button**: Return to gallery with context
+- **Action Toolbar**: Download, share, settings, device toggles
+- **Responsive Modes**: Mobile, tablet, desktop preview sizes
 
 ---
 
-## 🚀 **Expected Outcome**
+## 🚀 **Immediate Next Steps**
 
-After implementing Phase 5.1, users will be able to:
+### **Today's Tasks**
 
-1. **Navigate to Gallery**: Click Gallery tab to see all projects
-2. **Browse Projects**: View all generated websites in beautiful grid layout
-3. **Quick Preview**: Click preview button to see website in modal
-4. **Download Projects**: One-click download of complete project ZIP
-5. **Manage Projects**: Delete unwanted projects
-6. **Responsive Experience**: Works perfectly on desktop and mobile
+1. **Router Setup**:
 
-**This transforms the AI Website Generator from a simple generation tool into a comprehensive website management platform!**
+   - [ ] Install React Router dependencies
+   - [ ] Update main.tsx with BrowserRouter
+   - [ ] Refactor App.tsx to use Routes
+   - [ ] Create basic route structure
+
+2. **Preview Component**:
+
+   - [ ] Create ProjectPreview component
+   - [ ] Add backend preview content endpoint
+   - [ ] Implement iframe rendering
+   - [ ] Test with one project
+
+3. **Navigation Update**:
+   - [ ] Update gallery preview buttons
+   - [ ] Add breadcrumb navigation
+   - [ ] Implement back button functionality
+
+### **This Week's Goals**
+
+- [ ] Complete Phase 6.1 (Router Foundation)
+- [ ] Complete Phase 6.2 (Preview Component)
+- [ ] Basic navigation working between gallery and preview
+- [ ] At least one project previewable in-app
+- [ ] Responsive design foundation
+
+### **Success Criteria for This Week**
+
+- [ ] Gallery preview buttons navigate to `/preview/:id`
+- [ ] ProjectPreview component renders project content
+- [ ] Back navigation returns to gallery with context
+- [ ] Responsive design works on desktop and mobile
+- [ ] All existing gallery functionality preserved
+
+---
+
+## 🔄 **Migration Strategy**
+
+### **Backward Compatibility**
+
+- Keep external preview system as fallback
+- Gradual migration from external to in-app previews
+- User preference option for preview method
+- Fallback to external if in-app preview fails
+
+### **Risk Mitigation**
+
+- Test thoroughly with existing projects
+- Maintain all current functionality during migration
+- Implement proper error handling and fallbacks
+- Performance monitoring during implementation
+
+---
+
+## 📋 **Development Checklist**
+
+### **Frontend Tasks**
+
+- [ ] Install and configure React Router
+- [ ] Update App.tsx with route structure
+- [ ] Create ProjectPreview component
+- [ ] Add navigation breadcrumbs
+- [ ] Update gallery preview buttons
+- [ ] Implement responsive design
+- [ ] Add loading and error states
+
+### **Backend Tasks**
+
+- [ ] Create preview content endpoint
+- [ ] Add asset serving endpoint
+- [ ] Handle CORS for iframe embedding
+- [ ] Add proper MIME type detection
+- [ ] Implement security checks
+- [ ] Test with all project types
+
+### **Integration Tasks**
+
+- [ ] Update gallery navigation
+- [ ] Test route transitions
+- [ ] Verify iframe rendering
+- [ ] Test responsive behavior
+- [ ] Performance testing
+- [ ] Cross-browser compatibility
+
+---
+
+## 🎉 **Expected Outcome**
+
+After implementing Phase 6, users will experience:
+
+1. **Seamless Previews**: Click preview in gallery → instant in-app preview
+2. **Unified Experience**: Never leave the main application
+3. **Easy Navigation**: Clear breadcrumbs and back buttons
+4. **Responsive Previews**: Test projects on different device sizes
+5. **Enhanced Actions**: Download, share, and manage from preview
+6. **Better Performance**: Faster loading than external servers
+
+**This will complete the transformation of the AI Website Generator into a professional, unified website management platform with seamless user experience!**
+
+---
+
+## 🔄 **Context for Next Session**
+
+### **Current State**
+
+- Phase 5 Gallery is complete and working well
+- External preview issue identified and solution planned
+- Phase 6 plan documented and ready for implementation
+
+### **Next Actions**
+
+1. Start with React Router installation and setup
+2. Create basic route structure
+3. Build ProjectPreview component
+4. Test with existing projects
+
+### **Key Files to Work With**
+
+- `frontend/package.json` - Add React Router dependencies
+- `frontend/src/main.tsx` - Add BrowserRouter
+- `frontend/src/App.tsx` - Add Routes structure
+- `frontend/src/components/Preview/ProjectPreview.tsx` - New component
+- `backend/api/routes.py` - Add preview content endpoints
+
+**The foundation is solid, and Phase 6 will provide the final piece for a seamless user experience!**

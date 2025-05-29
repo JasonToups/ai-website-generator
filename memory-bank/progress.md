@@ -1,9 +1,9 @@
 # Project Progress - AI Website Generator
 
-## 🎯 **Current Status: Phase 5 Implementation Ready**
+## 🎯 **Current Status: Phase 6 Implementation Ready**
 
 **Last Updated**: May 29, 2025  
-**Current Focus**: Project Gallery Implementation  
+**Current Focus**: React Router Preview Integration  
 **Services Status**: ✅ Backend (localhost:8000) + Frontend (localhost:3000) Running
 
 ---
@@ -45,75 +45,71 @@
 - ✅ Preview status management
 - ✅ Integration with file system
 
+### **Phase 5: Project Gallery** ✅ COMPLETE
+
+- ✅ Beautiful project gallery with grid layout
+- ✅ Tab navigation (Gallery | Dashboard)
+- ✅ Project cards with metadata display
+- ✅ Search and filtering functionality
+- ✅ Download functionality (ZIP downloads)
+- ✅ Project deletion with confirmation
+- ✅ Responsive design on all devices
+- ✅ Gallery API endpoints with enhanced metadata
+
 ---
 
-## 🚧 **Current Phase: Phase 5 - Project Gallery**
+## 🚧 **Current Phase: Phase 6 - React Router Preview Integration**
 
 ### **Status**: 🟡 **READY TO IMPLEMENT** - Planning Complete
 
-### **What We Have** ✅
+### **Current Issue** ❌
 
-- ✅ **7 Completed Projects** with full file structures:
-  - Photographer Portfolio (`b216ae3e-94ac-49b3-a986-21ee86ecb56f`)
-  - E-commerce Jewelry Website (`9e5c696f-96e4-445a-8bd9-a909b0b37a33`)
-  - Portfolio Website (`66d766ee-909c-4d2c-a2a6-ddf1b2c72aad`)
-  - Plus 4 additional projects
-- ✅ **Backend APIs** for project management
-- ✅ **Live Preview System** ready for integration
-- ✅ **File System** with ZIP downloads
-- ✅ **Basic Frontend** with generation form
+- ❌ **External Preview Problem**: Preview buttons open external servers (localhost:3001, 3002, 3003)
+- ❌ **Context Loss**: Users leave the main application when previewing
+- ❌ **Poor UX**: New browser tabs/windows break the user flow
+- ❌ **Navigation Issues**: No easy way back to gallery
 
-### **What We're Building** 🚧
+### **Phase 6 Solution** 🎯
 
-- 🚧 **Project Gallery Interface** - Grid view of all projects
-- 🚧 **Preview Integration** - One-click preview of generated websites
-- 🚧 **Project Management** - Download, delete, and organize projects
-- 🚧 **Enhanced Navigation** - Tab-based interface (Dashboard + Gallery)
+**Replace external preview servers with seamless in-app project previews using React Router**
+
+#### **Target User Experience**:
+
+```
+Current: Gallery → Click Preview → New Tab (localhost:3003) → Lost Context
+Target:  Gallery → Click Preview → /preview/project-id → Back to Gallery
+```
 
 ### **Implementation Plan** 📋
 
-#### **Phase 5.1: Core Gallery Structure** (This Week)
+#### **Phase 6.1: Router Foundation** (Day 1)
 
-- [ ] **Backend Enhancement**:
+- [ ] **Install React Router**: Add react-router-dom dependencies
+- [ ] **Router Setup**: Update main.tsx with BrowserRouter
+- [ ] **Route Structure**: Refactor App.tsx to use Routes
+- [ ] **Navigation Update**: Update gallery preview buttons
 
-  - [ ] Create `/api/v1/projects/gallery` endpoint with metadata
-  - [ ] Add project deletion endpoint
-  - [ ] Implement basic thumbnail system
-  - [ ] Extract project metadata (file counts, types, sizes)
+#### **Phase 6.2: Preview Component** (Day 1-2)
 
-- [ ] **Frontend Structure**:
+- [ ] **ProjectPreview Component**: New full-screen preview component
+- [ ] **Backend API Enhancement**: Preview content and asset serving endpoints
+- [ ] **Iframe Rendering**: Serve project content through dedicated API
+- [ ] **Integration Testing**: Test with existing projects
 
-  - [ ] Add tab navigation to App.tsx (Dashboard | Gallery)
-  - [ ] Create PreviewGallery component with grid layout
-  - [ ] Design ProjectCard component with actions
-  - [ ] Implement responsive design
+#### **Phase 6.3: Navigation & Polish** (Day 2-3)
 
-- [ ] **Integration**:
-  - [ ] Connect gallery to enhanced backend API
-  - [ ] Add preview modal functionality
-  - [ ] Implement download actions
-  - [ ] Test with all 7 existing projects
-
-#### **Phase 5.2: Preview Integration** (Next Week)
-
-- [ ] **Modal Preview System**:
-
-  - [ ] Embedded iframe preview in modal
-  - [ ] Integration with Phase 4 live preview
-  - [ ] Quick preview without leaving gallery
-
-- [ ] **Enhanced Actions**:
-  - [ ] Full preview in new tab
-  - [ ] Project deletion with confirmation
-  - [ ] Search and filter functionality
+- [ ] **Breadcrumb Navigation**: Gallery > Project Preview
+- [ ] **Back Button Functionality**: Return to gallery with context
+- [ ] **Action Toolbar**: Download, share, settings from preview
+- [ ] **Responsive Design**: Mobile-responsive preview layout
 
 ---
 
 ## 📊 **Project Statistics**
 
-### **Generated Projects**: 7 Total
+### **Generated Projects**: 7+ Total
 
-- ✅ **Completed**: 6 projects
+- ✅ **Completed**: 6+ projects with full file structures
 - ❌ **Failed**: 1 project (token limit issue)
 - 📁 **Total Files Generated**: ~60+ React components and assets
 - 💾 **Storage**: Multiple ZIP archives ready for download
@@ -121,12 +117,12 @@
 ### **Technical Stack**
 
 - **Backend**: FastAPI + CrewAI + Anthropic Claude
-- **Frontend**: React + TypeScript + Tailwind CSS + ShadCN UI
+- **Frontend**: React + TypeScript + Tailwind CSS + ShadCN UI + React Router (NEW)
 - **AI Agents**: 3 specialized agents working in sequence
 - **File System**: Advanced parsing + ZIP generation
-- **Preview**: Live preview server with dynamic ports
+- **Preview**: Live preview system + In-app routing (NEW)
 
-### **API Endpoints**: 8 Functional
+### **API Endpoints**: 11+ Functional
 
 - ✅ `POST /api/v1/generate` - Start website generation
 - ✅ `GET /api/v1/projects` - List all projects
@@ -135,7 +131,10 @@
 - ✅ `GET /api/v1/projects/{id}/download` - Download project ZIP
 - ✅ `POST /api/v1/projects/{id}/preview/start` - Start live preview
 - ✅ `DELETE /api/v1/projects/{id}/preview` - Stop live preview
-- 🚧 `GET /api/v1/projects/gallery` - Gallery metadata (TO BUILD)
+- ✅ `GET /api/v1/projects/gallery` - Gallery metadata
+- ✅ `DELETE /api/v1/projects/{id}` - Delete project
+- 🚧 `GET /api/v1/projects/{id}/preview-content` - Preview content (TO BUILD)
+- 🚧 `GET /api/v1/projects/{id}/assets/{path}` - Asset serving (TO BUILD)
 
 ---
 
@@ -147,7 +146,8 @@
 - ✅ **Real-time Progress**: Live updates during generation process
 - ✅ **File Management**: Complete project files with proper structure
 - ✅ **Download Capability**: ZIP downloads of complete projects
-- 🚧 **Preview Capability**: Live preview system built, gallery integration pending
+- ✅ **Project Gallery**: Beautiful gallery with search, filter, and management
+- 🚧 **Seamless Previews**: In-app preview integration (Phase 6 goal)
 
 ### **Technical Performance** ✅
 
@@ -155,6 +155,7 @@
 - ✅ **File Parsing**: 100% success rate on completed projects
 - ✅ **System Reliability**: Stable backend and frontend services
 - ✅ **Code Quality**: TypeScript, proper error handling, responsive design
+- ✅ **Gallery Performance**: Fast loading and responsive design
 
 ### **AI Agent Performance** ✅
 
@@ -185,40 +186,46 @@ make dev      # Start both simultaneously
 1. **Photographer Portfolio** - Complete with gallery, contact form, responsive design
 2. **E-commerce Jewelry** - Product galleries, shopping cart, customer reviews
 3. **Portfolio Website** - Modern design with project showcases
-4. **Plus 4 additional projects** - Various website types and styles
+4. **Plus 4+ additional projects** - Various website types and styles
 
 ### **Next Development Session** 🎯
 
-1. **Start with Backend**: Enhance project API with gallery metadata
-2. **Frontend Structure**: Add tab navigation and gallery components
-3. **Integration**: Connect gallery to backend and test with existing projects
-4. **Polish**: Responsive design and user experience refinements
+1. **Install React Router**: Add dependencies and setup routing
+2. **Create Preview Component**: Build ProjectPreview component
+3. **Backend API Enhancement**: Add preview content endpoints
+4. **Integration Testing**: Test in-app previews with existing projects
 
 ---
 
 ## 🚀 **Vision: Complete Platform**
 
-### **Current State** (Phase 1-4 Complete)
+### **Current State** (Phase 1-5 Complete)
 
 ```
-AI Website Generator
+AI Website Generator Platform
 ├── ✅ Generation Interface (Working)
 ├── ✅ AI Agent System (Working)
 ├── ✅ File Management (Working)
 ├── ✅ Live Preview (Working)
-└── 🚧 Project Gallery (In Progress)
+├── ✅ Project Gallery (Working)
+└── 🚧 In-App Previews (Phase 6)
 ```
 
-### **Target State** (Phase 5 Complete)
+### **Target State** (Phase 6 Complete)
 
 ```
 AI Website Generator Platform
 ├── 🏠 Dashboard (Generation + Progress)
 ├── 🖼️ Gallery (All Projects + Management)
 │   ├── Grid view with thumbnails
-│   ├── One-click preview
+│   ├── Search and filtering
 │   ├── Download management
 │   └── Project organization
+├── 👁️ Preview (In-App Project Previews)
+│   ├── Full-screen project preview
+│   ├── Responsive device modes
+│   ├── Action toolbar
+│   └── Seamless navigation
 └── 🔧 Management (Future: Settings, Templates)
 ```
 
@@ -232,6 +239,7 @@ AI Website Generator Platform
 - ✅ **Multi-Agent Collaboration**: 3 AI agents working together seamlessly
 - ✅ **Advanced File Processing**: Regex parsing + ZIP generation + validation
 - ✅ **Live Preview System**: Dynamic preview servers for generated websites
+- ✅ **Project Gallery**: Beautiful, responsive gallery with full management
 - ✅ **Production-Ready Code**: TypeScript, error handling, responsive design
 
 ### **User Experience Milestones** 🏆
@@ -240,6 +248,8 @@ AI Website Generator Platform
 - ✅ **Real-Time Feedback**: Live progress tracking and status updates
 - ✅ **Professional Output**: High-quality websites with modern design
 - ✅ **Download Capability**: Complete project packages ready for deployment
+- ✅ **Project Management**: Gallery with search, filter, delete, and organize
+- 🚧 **Seamless Previews**: In-app preview without context loss (Phase 6)
 
 ### **Project Management** 🏆
 
@@ -247,6 +257,7 @@ AI Website Generator Platform
 - ✅ **Development Tools**: Makefile with all essential commands
 - ✅ **Testing Framework**: Multiple test files for each component
 - ✅ **Version Control**: Proper Git structure with clear commit history
+- ✅ **Phase Planning**: Detailed plans for each development phase
 
 ---
 
@@ -254,25 +265,72 @@ AI Website Generator Platform
 
 ### **Today's Priority** 🎯
 
-1. **Backend Gallery API**: Create enhanced project endpoint with metadata
-2. **Frontend Navigation**: Add tab structure to main app
-3. **Gallery Component**: Build project grid with cards
-4. **Basic Preview**: Modal preview integration
+1. **React Router Setup**: Install dependencies and configure routing
+2. **ProjectPreview Component**: Create new full-screen preview component
+3. **Backend API Enhancement**: Add preview content and asset serving endpoints
+4. **Navigation Integration**: Update gallery preview buttons to use routing
 
 ### **This Week's Goals** 🎯
 
-- [ ] Complete Phase 5.1 implementation
-- [ ] All 7 projects visible in gallery
-- [ ] Preview functionality working
-- [ ] Download actions functional
-- [ ] Responsive design complete
+- [ ] Complete Phase 6.1 (Router Foundation)
+- [ ] Complete Phase 6.2 (Preview Component)
+- [ ] Basic in-app preview working for at least one project
+- [ ] Navigation between gallery and preview functional
+- [ ] Responsive design foundation
 
 ### **Success Criteria** ✅
 
-- [ ] Gallery tab accessible from main app
-- [ ] All projects displayed in beautiful grid layout
-- [ ] One-click preview for any project
-- [ ] Download buttons working for all projects
-- [ ] Mobile-responsive design
+- [ ] Gallery preview buttons navigate to `/preview/:id`
+- [ ] ProjectPreview component renders project content in iframe
+- [ ] Back navigation returns to gallery with context preserved
+- [ ] Responsive design works on desktop and mobile
+- [ ] All existing gallery functionality preserved
 
-**The AI Website Generator is 80% complete and ready for the final gallery implementation phase!**
+---
+
+## 🔄 **Phase Evolution**
+
+### **Phase 5 → Phase 6 Transition**
+
+**What Changed**: User feedback revealed that external preview servers (localhost:3003) break the application flow and create poor user experience.
+
+**Solution**: Replace external servers with React Router-based in-app previews that keep users within the main application.
+
+**Benefits**:
+
+- ✅ **Seamless Navigation**: No context loss when previewing
+- ✅ **Unified Experience**: Never leave the main application
+- ✅ **Better Performance**: Faster loading than external servers
+- ✅ **Enhanced Actions**: Download, share, manage from preview
+- ✅ **Responsive Previews**: Test projects on different device sizes
+
+---
+
+## 📊 **Development Progress**
+
+### **Completion Status**
+
+- **Phase 1**: 100% ✅ (Foundation)
+- **Phase 2**: 100% ✅ (AI Agents)
+- **Phase 3**: 100% ✅ (File System)
+- **Phase 4**: 100% ✅ (Live Preview)
+- **Phase 5**: 100% ✅ (Project Gallery)
+- **Phase 6**: 0% 🚧 (React Router Previews)
+
+### **Overall Project**: 85% Complete
+
+**The AI Website Generator is nearly complete! Phase 6 will provide the final piece for a seamless, professional user experience.**
+
+---
+
+## 🎯 **Final Vision Achievement**
+
+After Phase 6 completion, the AI Website Generator will be:
+
+1. **Complete Platform**: Full-featured website generation and management
+2. **Seamless UX**: Unified experience without external dependencies
+3. **Professional Quality**: Production-ready with responsive design
+4. **Scalable Architecture**: Ready for future enhancements
+5. **User-Friendly**: Intuitive navigation and powerful features
+
+**This will be a comprehensive, professional-grade AI website generation platform!**
