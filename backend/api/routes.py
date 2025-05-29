@@ -9,6 +9,7 @@ from backend.crew.website_crew import WebsiteCrew
 from backend.utils.project_manager import ProjectManager
 from backend.utils.project_structure import ProjectStructureManager
 from backend.utils.file_parser import ProjectFileParser
+from backend.utils.project_preview import preview_manager
 
 router = APIRouter()
 
@@ -129,7 +130,7 @@ async def get_project_files(project_id: str) -> Dict[str, Any]:
 
 
 # ========================================
-# PHASE 3: NEW FILE OPERATION ENDPOINTS
+# PHASE 3: FILE OPERATION ENDPOINTS
 # ========================================
 
 @router.get("/projects/{project_id}/files/tree")
@@ -194,25 +195,123 @@ async def download_project_zip(project_id: str):
         raise HTTPException(status_code=500, detail=f"Failed to download project: {str(e)}")
 
 
-@router.get("/projects/{project_id}/preview")
-async def get_project_preview(project_id: str) -> Dict[str, Any]:
-    """Get live preview information for a project (Phase 3 foundation)."""
+# ========================================
+# PHASE 4: LIVE PREVIEW ENDPOINTS
+# ========================================
+
+@router.post("/projects/{project_id}/preview/start")
+async def start_project_preview(project_id: str) -> Dict[str, Any]:
+    """Start a live preview server for a project."""
     try:
-        manager = ProjectStructureManager(project_id)
+        result = preview_manager.start_preview(project_id)
         
-        # Check if project files exist
-        if not manager.files_path.exists():
-            raise HTTPException(status_code=404, detail="Project files not found")
+        if not result['success']:
+            raise HTTPException(status_code=400, detail=result.get('error', 'Failed to start preview'))
         
-        # For now, return preview readiness info
-        # TODO: Implement ProjectPreviewManager in next step
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to start preview: {str(e)}")
+
+
+@router.delete("/projects/{project_id}/preview/stop")
+async def stop_project_preview(project_id: str) -> Dict[str, Any]:
+    """Stop the live preview server for a project."""
+    try:
+        result = preview_manager.stop_preview(project_id)
+        
+        if not result['success']:
+            raise HTTPException(status_code=400, detail=result.get('error', 'Failed to stop preview'))
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to stop preview: {str(e)}")
+
+
+@router.get("/projects/{project_id}/preview/status")
+async def get_project_preview_status(project_id: str) -> Dict[str, Any]:
+    """Get the status of a project's preview server."""
+    try:
+        result = preview_manager.get_preview_status(project_id)
+        
+        if not result['success']:
+            raise HTTPException(status_code=500, detail=result.get('error', 'Failed to get preview status'))
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get preview status: {str(e)}")
+
+
+@router.get("/projects/{project_id}/preview/url")
+async def get_project_preview_url(project_id: str) -> Dict[str, Any]:
+    """Get the preview URL for a project."""
+    try:
+        url = preview_manager.get_preview_url(project_id)
+        
+        if not url:
+            raise HTTPException(status_code=404, detail="Preview not running or project not found")
+        
         return {
             "success": True,
             "project_id": project_id,
-            "preview_ready": True,
+            "url": url
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get preview URL: {str(e)}")
+
+
+@router.get("/preview/active")
+async def list_active_previews() -> Dict[str, Any]:
+    """List all active preview servers."""
+    try:
+        result = preview_manager.list_active_previews()
+        return result
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to list active previews: {str(e)}")
+
+
+@router.delete("/preview/cleanup")
+async def cleanup_all_previews() -> Dict[str, Any]:
+    """Stop all active preview servers."""
+    try:
+        result = preview_manager.cleanup_all_previews()
+        return result
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to cleanup previews: {str(e)}")
+
+
+@router.get("/projects/{project_id}/preview")
+async def get_project_preview(project_id: str) -> Dict[str, Any]:
+    """Get live preview information for a project."""
+    try:
+        # Check if project files exist
+        manager = ProjectStructureManager(project_id)
+        if not manager.files_path.exists():
+            raise HTTPException(status_code=404, detail="Project files not found")
+        
+        # Get preview status
+        preview_status = preview_manager.get_preview_status(project_id)
+        
+        return {
+            "success": True,
+            "project_id": project_id,
+            "preview_available": True,
             "files_path": str(manager.files_path),
-            "message": "Preview infrastructure ready - ProjectPreviewManager to be implemented",
-            "status": "foundation_ready"
+            "preview_status": preview_status,
+            "message": "Live preview system ready"
         }
         
     except HTTPException:
