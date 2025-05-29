@@ -2,7 +2,7 @@
 
 from typing import Dict, Any, List
 from fastapi import APIRouter, HTTPException, BackgroundTasks
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, Field
 
 from backend.crew.website_crew import WebsiteCrew
@@ -376,6 +376,73 @@ async def get_project_preview(project_id: str) -> Dict[str, Any]:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get preview info: {str(e)}")
+
+
+# ========================================
+# PHASE 6: NEW TAB PREVIEW ENDPOINTS
+# ========================================
+
+@router.get("/preview/{project_id}")
+async def preview_project_in_new_tab(project_id: str):
+    """Serve complete project for new tab preview."""
+    try:
+        manager = ProjectStructureManager(project_id)
+        index_file = manager.get_individual_file("index.html")
+        
+        if not index_file['success']:
+            raise HTTPException(status_code=404, detail="Project index.html not found")
+        
+        # Modify HTML to include proper base URL for assets
+        html_content = index_file['content']
+        base_url = f"/api/v1/projects/{project_id}/assets/"
+        
+        # Inject base tag for relative URLs
+        html_content = html_content.replace(
+            '<head>',
+            f'<head><base href="{base_url}">'
+        )
+        
+        return Response(
+            content=html_content,
+            media_type="text/html"
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to serve preview: {str(e)}")
+
+
+@router.get("/projects/{project_id}/assets/{file_path:path}")
+async def serve_project_asset(project_id: str, file_path: str):
+    """Serve project assets for preview."""
+    try:
+        manager = ProjectStructureManager(project_id)
+        file_result = manager.get_individual_file(file_path)
+        
+        if not file_result['success']:
+            raise HTTPException(status_code=404, detail="Asset not found")
+        
+        # Determine MIME type
+        mime_type = "text/plain"
+        if file_path.endswith('.css'):
+            mime_type = "text/css"
+        elif file_path.endswith('.js'):
+            mime_type = "application/javascript"
+        elif file_path.endswith('.json'):
+            mime_type = "application/json"
+        elif file_path.endswith('.png'):
+            mime_type = "image/png"
+        elif file_path.endswith('.jpg') or file_path.endswith('.jpeg'):
+            mime_type = "image/jpeg"
+        elif file_path.endswith('.svg'):
+            mime_type = "image/svg+xml"
+        
+        return Response(
+            content=file_result['content'],
+            media_type=mime_type
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to serve asset: {str(e)}")
 
 
 async def _generate_website_task(
