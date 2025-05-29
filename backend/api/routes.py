@@ -75,8 +75,12 @@ async def get_project_status(project_id: str) -> ProjectStatus:
         
         if not status:
             raise HTTPException(status_code=404, detail="Project not found")
+        
+        # Map 'id' field to 'project_id' for the response model
+        status_data = status.copy()
+        status_data['project_id'] = status_data.pop('id')
             
-        return ProjectStatus(**status)
+        return ProjectStatus(**status_data)
         
     except HTTPException:
         raise

@@ -148,6 +148,13 @@ class WebsiteCrew:
             description=f"""
             Implement the website based on the project specification and design.
             
+            CRITICAL REQUIREMENTS:
+            - Generate COMPLETE, FUNCTIONAL React components
+            - Every component must have proper opening AND closing tags
+            - All imports must be included
+            - No truncated or incomplete code
+            - If output is getting long, create multiple smaller components instead of truncating
+            
             Create a complete React application with:
             1. Component structure following the design
             2. Responsive layout using Tailwind CSS
@@ -156,16 +163,23 @@ class WebsiteCrew:
             5. Modern React patterns (hooks, functional components)
             6. TypeScript for type safety
             
-            Generate all necessary files:
-            - React components (.tsx files)
-            - Tailwind CSS styles
-            - Package.json with dependencies
-            - README with setup instructions
+            Generate all necessary files with COMPLETE implementations:
+            - src/App.tsx (complete main component)
+            - src/components/Navbar.tsx (complete navigation component)
+            - src/components/Hero.tsx (complete hero section)
+            - src/components/About.tsx (complete about section)
+            - src/components/Contact.tsx (complete contact section)
+            - src/components/Footer.tsx (complete footer component)
+            - package.json with all dependencies
+            - README.md with setup instructions
+            
+            IMPORTANT: Each file must be COMPLETE and FUNCTIONAL. Do not cut off mid-component.
+            If you need to limit output size, create fewer but complete components rather than incomplete ones.
             
             Project ID for file saving: {project_id}
             """,
             agent=self.software_engineer.agent,
-            expected_output="Complete React application with all source files",
+            expected_output="Complete React application with all source files - every component must be fully implemented with proper closing tags",
             context=[requirements_task, design_task]
         )
         

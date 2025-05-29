@@ -15,5 +15,38 @@
     "errors": [],
     "created_at": "2025-05-28T17:52:00.396409",
     "updated_at": "2025-05-28T17:52:48.759288"
+  },
+  "232f7a84-658c-4819-bc54-7c9686828a8c": {
+    "id": "232f7a84-658c-4819-bc54-7c9686828a8c",
+    "description": "A modern portfolio website for a software developer with a clean design, showcasing projects and skills",
+    "requirements": [],
+    "style_preferences": {},
+    "status": "failed",
+    "progress": 20,
+    "current_step": "Generation failed: Task execution failed: litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"max_tokens: 8192 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229\"}}",
+    "files_generated": [],
+    "errors": [
+      {
+        "message": "Task execution failed: litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"max_tokens: 8192 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229\"}}",
+        "timestamp": "2025-05-28T18:05:20.296222"
+      }
+    ],
+    "created_at": "2025-05-28T18:04:46.029944",
+    "updated_at": "2025-05-28T18:05:20.297273"
+  },
+  "65dae4b8-add6-47c5-9bb3-86864eb16234": {
+    "id": "65dae4b8-add6-47c5-9bb3-86864eb16234",
+    "description": "A simple landing page with a hero section and contact form",
+    "requirements": [],
+    "style_preferences": {},
+    "status": "completed",
+    "progress": 100,
+    "current_step": "Website generation completed successfully",
+    "files_generated": [
+      "crew_output.txt"
+    ],
+    "errors": [],
+    "created_at": "2025-05-28T18:07:42.641516",
+    "updated_at": "2025-05-28T18:08:49.312364"
   }
 }
