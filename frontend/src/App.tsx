@@ -9,8 +9,8 @@ function App() {
 
   // Determine active tab based on current route
   const getActiveTab = () => {
-    if (location.pathname === '/dashboard') return 'dashboard';
-    return 'gallery';
+    if (location.pathname === '/gallery') return 'gallery';
+    return 'dashboard';
   };
 
   const activeTab = getActiveTab();
@@ -29,17 +29,8 @@ function App() {
             </div>
           </div>
 
-          {/* Tab Navigation */}
+          {/* Tab Navigation - Dashboard first, Gallery second */}
           <div className="flex space-x-8">
-            <button
-              onClick={() => navigate('/gallery')}
-              className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'gallery'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}>
-              🖼️ Gallery
-            </button>
             <button
               onClick={() => navigate('/dashboard')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
@@ -49,6 +40,15 @@ function App() {
               }`}>
               🏠 Dashboard
             </button>
+            <button
+              onClick={() => navigate('/gallery')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                activeTab === 'gallery'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}>
+              🖼️ Gallery
+            </button>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@ function App() {
       {/* Main Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>
-          <Route path="/" element={<Navigate to="/gallery" replace />} />
-          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
         </Routes>
       </div>
     </div>
