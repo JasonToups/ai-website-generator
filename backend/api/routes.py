@@ -130,6 +130,64 @@ async def get_project_files(project_id: str) -> Dict[str, Any]:
 
 
 # ========================================
+# PHASE 5: GALLERY ENDPOINTS
+# ========================================
+
+@router.get("/projects/gallery")
+async def get_project_gallery() -> Dict[str, Any]:
+    """Get all projects with enhanced metadata for gallery display."""
+    try:
+        project_manager = ProjectManager()
+        gallery_projects = project_manager.get_gallery_projects()
+        
+        return {
+            "projects": gallery_projects,
+            "total": len(gallery_projects)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get gallery projects: {str(e)}")
+
+
+@router.delete("/projects/{project_id}")
+async def delete_project(project_id: str) -> Dict[str, Any]:
+    """Delete a project and all its associated files."""
+    try:
+        project_manager = ProjectManager()
+        success = project_manager.delete_project(project_id)
+        
+        if not success:
+            raise HTTPException(status_code=404, detail="Project not found")
+        
+        return {
+            "success": True,
+            "message": f"Project {project_id} deleted successfully"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete project: {str(e)}")
+
+
+@router.get("/projects/{project_id}/thumbnail")
+async def get_project_thumbnail(project_id: str) -> Dict[str, Any]:
+    """Get project thumbnail (placeholder for now)."""
+    try:
+        # TODO: Implement actual thumbnail generation
+        # For now, return a placeholder response
+        return {
+            "project_id": project_id,
+            "thumbnail_url": f"/api/v1/projects/{project_id}/thumbnail",
+            "placeholder": True,
+            "message": "Thumbnail generation not yet implemented"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get thumbnail: {str(e)}")
+
+
+# ========================================
 # PHASE 3: FILE OPERATION ENDPOINTS
 # ========================================
 

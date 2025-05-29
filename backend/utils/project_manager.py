@@ -7,6 +7,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
+from backend.utils.project_structure import ProjectStructureManager
+from backend.utils.project_preview import preview_manager
+
 
 class ProjectManager:
     """Manages website generation projects and their status."""
@@ -162,6 +165,164 @@ class ProjectManager:
         
         # Add to generated files list
         self.add_generated_file(project_id, file_path)
+    
+    # ========================================
+    # PHASE 5: GALLERY METHODS
+    # ========================================
+    
+    def get_gallery_projects(self) -> List[Dict[str, Any]]:
+        """Get all projects with enhanced metadata for gallery display."""
+        projects = self._load_projects()
+        gallery_projects = []
+        
+        for project_id, project_data in projects.items():
+            # Get enhanced metadata
+            metadata = self._get_project_metadata(project_id)
+            
+            # Create gallery project entry
+            gallery_project = {
+                "project_id": project_id,
+                "title": self._generate_project_title(project_data["description"]),
+                "description": project_data["description"],
+                "status": project_data["status"],
+                "created_at": project_data["created_at"],
+                "updated_at": project_data["updated_at"],
+                "file_count": metadata["file_count"],
+                "has_preview": metadata["has_preview"],
+                "thumbnail_url": metadata["thumbnail_url"],
+                "preview_url": metadata["preview_url"],
+                "download_url": f"/api/v1/projects/{project_id}/download",
+                "metadata": {
+                    "website_type": metadata["website_type"],
+                    "technologies": metadata["technologies"],
+                    "file_size": metadata["file_size"]
+                }
+            }
+            
+            gallery_projects.append(gallery_project)
+        
+        # Sort by creation date (newest first)
+        gallery_projects.sort(key=lambda x: x["created_at"], reverse=True)
+        
+        return gallery_projects
+    
+    def delete_project(self, project_id: str) -> bool:
+        """Delete a project and all its associated files."""
+        try:
+            # Remove from projects data
+            projects = self._load_projects()
+            if project_id not in projects:
+                return False
+            
+            del projects[project_id]
+            self._save_projects(projects)
+            
+            # Remove project directory
+            project_dir = self.projects_dir / project_id
+            if project_dir.exists():
+                import shutil
+                shutil.rmtree(project_dir)
+            
+            # Stop any running preview
+            try:
+                preview_manager.stop_preview(project_id)
+            except:
+                pass  # Ignore errors if preview wasn't running
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error deleting project {project_id}: {str(e)}")
+            return False
+    
+    def _get_project_metadata(self, project_id: str) -> Dict[str, Any]:
+        """Extract metadata for a project."""
+        project_dir = self.projects_dir / project_id
+        files_dir = project_dir / "files"
+        
+        metadata = {
+            "file_count": 0,
+            "has_preview": False,
+            "thumbnail_url": None,
+            "preview_url": None,
+            "website_type": "Unknown",
+            "technologies": [],
+            "file_size": 0
+        }
+        
+        # Check if files exist
+        if not files_dir.exists():
+            return metadata
+        
+        # Count files and calculate size
+        file_count = 0
+        total_size = 0
+        technologies = set()
+        
+        for file_path in files_dir.rglob("*"):
+            if file_path.is_file():
+                file_count += 1
+                total_size += file_path.stat().st_size
+                
+                # Detect technologies from file extensions
+                suffix = file_path.suffix.lower()
+                if suffix == '.tsx':
+                    technologies.add('React')
+                    technologies.add('TypeScript')
+                elif suffix == '.ts':
+                    technologies.add('TypeScript')
+                elif suffix == '.jsx':
+                    technologies.add('React')
+                elif suffix == '.js':
+                    technologies.add('JavaScript')
+                elif suffix == '.css':
+                    technologies.add('CSS')
+                elif suffix == '.html':
+                    technologies.add('HTML')
+                elif suffix == '.json':
+                    if file_path.name == 'package.json':
+                        technologies.add('Node.js')
+        
+        metadata["file_count"] = file_count
+        metadata["file_size"] = total_size
+        metadata["technologies"] = list(technologies)
+        
+        # Determine website type
+        if 'React' in technologies:
+            metadata["website_type"] = "React Application"
+        elif 'HTML' in technologies:
+            metadata["website_type"] = "Static Website"
+        else:
+            metadata["website_type"] = "Web Project"
+        
+        # Check if preview is available
+        if files_dir.exists() and file_count > 0:
+            metadata["has_preview"] = True
+            # Check if preview is currently running
+            preview_url = preview_manager.get_preview_url(project_id)
+            if preview_url:
+                metadata["preview_url"] = preview_url
+        
+        # TODO: Add thumbnail generation in future
+        # For now, use a placeholder or default thumbnail
+        metadata["thumbnail_url"] = f"/api/v1/projects/{project_id}/thumbnail"
+        
+        return metadata
+    
+    def _generate_project_title(self, description: str) -> str:
+        """Generate a user-friendly title from project description."""
+        # Take first 50 characters and clean up
+        title = description[:50].strip()
+        
+        # Capitalize first letter
+        if title:
+            title = title[0].upper() + title[1:]
+        
+        # Add ellipsis if truncated
+        if len(description) > 50:
+            title += "..."
+        
+        return title or "Untitled Project"
     
     def _load_projects(self) -> Dict[str, Any]:
         """Load projects from file."""
