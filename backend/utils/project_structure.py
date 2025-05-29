@@ -7,6 +7,14 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 import json
 
+# Import template injection functionality
+try:
+    from .template_engine import inject_templates
+except ImportError:
+    # Fallback if template_engine is not available
+    def inject_templates(parsed_files, project_metadata):
+        return parsed_files
+
 
 class ProjectStructureManager:
     """Manage project folder structure and file creation."""
@@ -45,7 +53,8 @@ class ProjectStructureManager:
                     'path': file_path,
                     'full_path': str(full_file_path),
                     'size': file_info['size'],
-                    'is_valid': file_info['is_valid']
+                    'is_valid': file_info.get('is_valid', True),
+                    'template_generated': file_info.get('template_generated', False)
                 })
             
             # Create file manifest - convert set to list for JSON serialization
@@ -63,7 +72,8 @@ class ProjectStructureManager:
                 'created_directories': list(created_directories),
                 'manifest_path': str(manifest_path),
                 'total_files': len(created_files),
-                'total_directories': len(created_directories)
+                'total_directories': len(created_directories),
+                'templates_injected': parsed_files.get('metadata', {}).get('templates_injected', 0)
             }
             
         except Exception as e:
@@ -181,16 +191,17 @@ class ProjectStructureManager:
         return {
             'project_id': self.project_id,
             'parsing_results': {
-                'file_count': parsed_files['file_count'],
-                'success': parsed_files['success'],
-                'parsing_errors': parsed_files['parsing_errors']
+                'file_count': parsed_files.get('file_count', len(created_files)),
+                'success': parsed_files.get('success', True),
+                'parsing_errors': parsed_files.get('parsing_errors', [])
             },
-            'project_structure': parsed_files['project_structure'],
+            'project_structure': parsed_files.get('project_structure', {}),
             'created_files': created_files,
             'created_directories': created_directories,
             'file_types': self._analyze_file_types(created_files),
             'total_size': sum(f['size'] for f in created_files),
-            'creation_timestamp': self._get_timestamp()
+            'creation_timestamp': self._get_timestamp(),
+            'template_metadata': parsed_files.get('metadata', {})
         }
     
     def _build_file_tree(self, path: Path, relative_to: Optional[Path] = None) -> Dict[str, Any]:
@@ -309,12 +320,33 @@ class ProjectStructureManager:
             }
 
 
-def create_project_structure(project_id: str, parsed_files: Dict[str, Any]) -> Dict[str, Any]:
-    """Convenience function to create complete project structure."""
+def create_project_structure(project_id: str, parsed_files: Dict[str, Any], project_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """
+    Convenience function to create complete project structure with template injection.
+    
+    Args:
+        project_id: Unique project identifier
+        parsed_files: Parsed files from CrewAI output
+        project_metadata: Project metadata for template variables (optional)
+    
+    Returns:
+        Dictionary with creation results
+    """
+    # Inject templates before creating project structure
+    if project_metadata is None:
+        # Extract basic metadata from parsed files if not provided
+        project_metadata = {
+            'title': f'Project {project_id}',
+            'description': 'AI-generated website project'
+        }
+    
+    # Inject template files
+    enhanced_files = inject_templates(parsed_files, project_metadata)
+    
     manager = ProjectStructureManager(project_id)
     
-    # Create folder structure
-    folder_result = manager.create_project_folder(parsed_files)
+    # Create folder structure with enhanced files (including templates)
+    folder_result = manager.create_project_folder(enhanced_files)
     if not folder_result['success']:
         return folder_result
     
@@ -328,7 +360,9 @@ def create_project_structure(project_id: str, parsed_files: Dict[str, Any]) -> D
         'project_path': folder_result['project_path'],
         'zip_path': zip_result.get('zip_path'),
         'total_files': folder_result['total_files'],
-        'zip_created': zip_result['success']
+        'zip_created': zip_result['success'],
+        'templates_injected': folder_result.get('templates_injected', 0),
+        'template_metadata': enhanced_files.get('metadata', {})
     }
 
 
