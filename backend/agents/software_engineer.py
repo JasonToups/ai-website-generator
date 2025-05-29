@@ -9,12 +9,12 @@ class SoftwareEngineerAgent:
     """Software Engineer agent for implementing React applications."""
     
     def __init__(self):
-        # Initialize the LLM with maximum allowed tokens for Claude 3 Sonnet
+        # Initialize the LLM with Claude 3.5 Sonnet for better code generation
         self.llm = ChatAnthropic(
-            model="claude-3-sonnet-20240229",
+            model="claude-3-5-sonnet-20240620",
             api_key=os.getenv("ANTHROPIC_API_KEY"),
             temperature=0.2,
-            max_tokens=4096  # Maximum allowed for Claude 3 Sonnet
+            max_tokens=8192  # Claude 3.5 Sonnet supports higher token limits
         )
         
         # Create the agent

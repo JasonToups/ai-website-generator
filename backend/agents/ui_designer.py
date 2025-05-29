@@ -10,11 +10,12 @@ class UIDesignerAgent:
     """UI/UX Designer agent for creating website designs and layouts."""
     
     def __init__(self):
-        # Initialize the LLM
+        # Initialize the LLM with Claude 3.5 Sonnet for better design analysis
         self.llm = ChatAnthropic(
-            model="claude-3-sonnet-20240229",
+            model="claude-3-5-sonnet-20240620",
             api_key=os.getenv("ANTHROPIC_API_KEY"),
-            temperature=0.3
+            temperature=0.3,
+            max_tokens=8192  # Claude 3.5 Sonnet supports higher token limits
         )
         
         # Create the agent

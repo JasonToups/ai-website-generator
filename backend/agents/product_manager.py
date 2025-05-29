@@ -10,11 +10,12 @@ class ProductManagerAgent:
     """Product Manager agent for analyzing requirements and creating specifications."""
     
     def __init__(self):
-        # Initialize the LLM
+        # Initialize the LLM with Claude 3.5 Sonnet for better analysis
         self.llm = ChatAnthropic(
-            model="claude-3-sonnet-20240229",
+            model="claude-3-5-sonnet-20240620",
             api_key=os.getenv("ANTHROPIC_API_KEY"),
-            temperature=0.1
+            temperature=0.1,
+            max_tokens=8192  # Claude 3.5 Sonnet supports higher token limits
         )
         
         # Create the agent
