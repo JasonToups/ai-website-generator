@@ -1,0 +1,140 @@
+{
+  "project_id": "9e5c696f-96e4-445a-8bd9-a909b0b37a33",
+  "parsing_results": {
+    "file_count": 8,
+    "success": true,
+    "parsing_errors": []
+  },
+  "project_structure": {
+    "name": "project-9e5c696f-96e4-445a-8bd9-a909b0b37a33",
+    "type": "folder",
+    "children": [
+      {
+        "name": "src",
+        "type": "folder",
+        "children": [
+          {
+            "name": "components",
+            "type": "folder",
+            "children": [
+              {
+                "name": "About.tsx",
+                "type": "file",
+                "path": "src/components/About.tsx",
+                "extension": ".tsx",
+                "size": 1360,
+                "is_valid": true
+              },
+              {
+                "name": "Contact.tsx",
+                "type": "file",
+                "path": "src/components/Contact.tsx",
+                "extension": ".tsx",
+                "size": 2575,
+                "is_valid": true
+              },
+              {
+                "name": "Footer.tsx",
+                "type": "file",
+                "path": "src/components/Footer.tsx",
+                "extension": ".tsx",
+                "size": 2935,
+                "is_valid": true
+              },
+              {
+                "name": "Hero.tsx",
+                "type": "file",
+                "path": "src/components/Hero.tsx",
+                "extension": ".tsx",
+                "size": 876,
+                "is_valid": true
+              },
+              {
+                "name": "Navbar.tsx",
+                "type": "file",
+                "path": "src/components/Navbar.tsx",
+                "extension": ".tsx",
+                "size": 2256,
+                "is_valid": true
+              }
+            ]
+          },
+          {
+            "name": "App.tsx",
+            "type": "file",
+            "path": "src/App.tsx",
+            "extension": ".tsx",
+            "size": 1423,
+            "is_valid": true
+          }
+        ]
+      },
+      {
+        "name": "package.json",
+        "type": "file",
+        "path": "package.json",
+        "extension": ".json",
+        "size": 1153,
+        "is_valid": true
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "README.md",
+        "extension": ".md",
+        "size": 1668,
+        "is_valid": true
+      }
+    ]
+  },
+  "created_files": [
+    {
+      "path": "src/App.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/App.tsx",
+      "size": 1423,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Navbar.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/components/Navbar.tsx",
+      "size": 2256,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Hero.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/components/Hero.tsx",
+      "size": 876,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/About.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/components/About.tsx",
+      "size": 1360,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Contact.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/components/Contact.tsx",
+      "size": 2575,
+      "is_valid": true
+    },
+    {
+      "path": "src/components/Footer.tsx",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/src/components/Footer.tsx",
+      "size": 2935,
+      "is_valid": true
+    },
+    {
+      "path": "package.json",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/package.json",
+      "size": 1153,
+      "is_valid": true
+    },
+    {
+      "path": "README.md",
+      "full_path": "generated/projects/9e5c696f-96e4-445a-8bd9-a909b0b37a33/files/README.md",
+      "size": 1668,
+      "is_valid": true
+    }
+  ],
+  "created_directories": 
