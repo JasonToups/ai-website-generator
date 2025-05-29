@@ -127,9 +127,32 @@ The AI Website Generator is now fully functional and ready to generate websites!
 4. Watch real-time progress as the three agents work together
 5. View generated files and project status
 
+## 🔧 Critical Issues Discovered (Current Priority)
+
+### Status Endpoint Failures
+
+- **Issue**: `/api/v1/projects/{id}/status` returning 500 Internal Server Error
+- **Impact**: Frontend cannot track project progress or completion
+- **Status**: 🔴 Needs immediate attention
+
+### Incomplete Code Generation
+
+- **Issue**: Software Engineer agent output is truncated (cuts off mid-component)
+- **Impact**: Generated websites are incomplete and non-functional
+- **Example**: Navbar component cuts off in middle of JSX
+- **Status**: 🔴 Needs immediate attention
+
+### Missing File Parsing Pipeline
+
+- **Issue**: Crew output saved as single text file instead of proper file structure
+- **Impact**: No individual React files, no package.json, no proper project structure
+- **Status**: 🔴 Needs immediate attention
+
 ## 🔄 Next Steps (Future Enhancements)
 
-- [ ] Implement file parsing and extraction from agent outputs
+- [ ] **PRIORITY 1**: Fix status endpoint 500 errors
+- [ ] **PRIORITY 2**: Resolve code generation truncation
+- [ ] **PRIORITY 3**: Implement file parsing and extraction from agent outputs
 - [ ] Add preview functionality for generated websites
 - [ ] Integrate MCP servers for enhanced capabilities
 - [ ] Add more sophisticated error handling and recovery

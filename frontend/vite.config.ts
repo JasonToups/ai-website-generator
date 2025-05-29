@@ -6,6 +6,10 @@ import { defineConfig } from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    open: true, // Automatically open browser when dev server starts
+    port: 3000, // Set a consistent port
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
