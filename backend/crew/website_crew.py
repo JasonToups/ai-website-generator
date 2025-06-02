@@ -148,30 +148,38 @@ class WebsiteCrew:
             description=f"""
             Implement the website based on the project specification and design.
             
-            CRITICAL REQUIREMENTS:
-            - Generate COMPLETE, FUNCTIONAL React components
+            CRITICAL REQUIREMENTS - VITE PROJECT:
+            - Generate COMPLETE, FUNCTIONAL Vite + React components
             - Every component must have proper opening AND closing tags
             - All imports must be included
             - No truncated or incomplete code
             - If output is getting long, create multiple smaller components instead of truncating
+            - MUST use Vite project structure (NOT Create React App)
+            - Use modern React Router v6 syntax (Routes, not Switch)
+            - Generate main.tsx entry point (not index.js)
             
-            Create a complete React application with:
+            Create a complete VITE + React application with:
             1. Component structure following the design
             2. Responsive layout using Tailwind CSS
             3. Clean, maintainable code
-            4. Proper file organization
+            4. Proper file organization for Vite
             5. Modern React patterns (hooks, functional components)
             6. TypeScript for type safety
+            7. Modern ES modules and imports
             
             Generate all necessary files with COMPLETE implementations:
-            - src/App.tsx (complete main component)
+            - src/App.tsx (complete main component with modern React Router v6)
             - src/components/Navbar.tsx (complete navigation component)
             - src/components/Hero.tsx (complete hero section)
             - src/components/About.tsx (complete about section)
             - src/components/Contact.tsx (complete contact section)
             - src/components/Footer.tsx (complete footer component)
-            - package.json with all dependencies
-            - README.md with setup instructions
+            - package.json with VITE dependencies (NOT react-scripts):
+              * "dev": "vite" script
+              * "build": "tsc -b && vite build" script
+              * "preview": "vite preview" script
+              * Vite, React 19, TypeScript, Tailwind CSS dependencies
+            - README.md with Vite setup instructions
             
             IMPORTANT: Each file must be COMPLETE and FUNCTIONAL. Do not cut off mid-component.
             If you need to limit output size, create fewer but complete components rather than incomplete ones.

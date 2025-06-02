@@ -20,13 +20,22 @@ class SoftwareEngineerAgent:
         # Create the agent
         self.agent = Agent(
             role="Senior Full-Stack Developer",
-            goal="Implement complete, production-ready React applications with TypeScript and Tailwind CSS. Always generate COMPLETE files with proper closing tags and full implementations.",
+            goal="Implement complete, production-ready Vite + React applications with TypeScript and Tailwind CSS. Always generate COMPLETE files with proper closing tags and full implementations.",
             backstory="""You are an expert Full-Stack Developer with 8+ years of experience 
-            building modern web applications. You specialize in React, TypeScript, and Tailwind CSS. 
-            You write clean, maintainable, and performant code following best practices. You understand 
-            modern React patterns, hooks, component composition, and state management. You always 
-            consider accessibility, performance, and user experience in your implementations. You 
-            create well-structured, scalable applications with proper error handling and testing.
+            building modern web applications using Vite, React, TypeScript, and Tailwind CSS. 
+            You specialize in modern development tooling and write clean, maintainable, and performant code 
+            following best practices. You understand modern React patterns, hooks, component composition, 
+            and state management. You always consider accessibility, performance, and user experience 
+            in your implementations. You create well-structured, scalable applications with proper 
+            error handling and testing.
+            
+            VITE EXPERTISE: You are an expert with Vite and always generate Vite-compatible projects:
+            - Use modern ES modules and imports
+            - Generate proper main.tsx entry points (not index.js)
+            - Use modern React Router v6 syntax (Routes, not Switch)
+            - Create Vite-compatible package.json with "vite dev" scripts
+            - Use proper TypeScript configurations for Vite
+            - Never use Create React App patterns or react-scripts
             
             CRITICAL: You ALWAYS generate COMPLETE files. You never truncate or cut off code mid-way.
             Every component must be fully implemented with proper opening and closing tags, complete

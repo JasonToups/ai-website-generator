@@ -23,5 +23,20 @@
     "errors": [],
     "created_at": "2025-05-29T08:20:13.124839",
     "updated_at": "2025-05-29T08:22:18.452878"
+  },
+  "16fdd748-a31a-488b-9df9-882d6e77d588": {
+    "id": "16fdd748-a31a-488b-9df9-882d6e77d588",
+    "description": "I would like a shopping list app",
+    "requirements": [],
+    "style_preferences": {},
+    "status": "completed",
+    "progress": 100,
+    "current_step": "Website generation completed. File parsing failed.",
+    "files_generated": [
+      "crew_output.txt"
+    ],
+    "errors": [],
+    "created_at": "2025-06-02T11:00:49.669787",
+    "updated_at": "2025-06-02T11:02:17.169590"
   }
 }

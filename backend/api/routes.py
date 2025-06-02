@@ -427,6 +427,9 @@ async def serve_project_asset(project_id: str, file_path: str):
             mime_type = "text/css"
         elif file_path.endswith('.js'):
             mime_type = "application/javascript"
+        elif file_path.endswith('.tsx') or file_path.endswith('.ts'):
+            # Serve TypeScript files as JavaScript for browser compatibility
+            mime_type = "application/javascript"
         elif file_path.endswith('.json'):
             mime_type = "application/json"
         elif file_path.endswith('.png'):
@@ -435,6 +438,8 @@ async def serve_project_asset(project_id: str, file_path: str):
             mime_type = "image/jpeg"
         elif file_path.endswith('.svg'):
             mime_type = "image/svg+xml"
+        elif file_path.endswith('.html'):
+            mime_type = "text/html"
         
         return Response(
             content=file_result['content'],

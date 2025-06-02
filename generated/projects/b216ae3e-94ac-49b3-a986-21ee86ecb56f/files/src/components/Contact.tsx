@@ -12,7 +12,7 @@ const Contact: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -24,7 +24,7 @@ const Contact: React.FC = () => {
 
     // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       setFormStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-20">
+    <section id="contact" className="bg-gray-100 py-20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-center">Contact Us</h2>
         <div className="flex flex-wrap -mx-4">
@@ -91,14 +91,12 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                ></textarea>
+                  required></textarea>
               </div>
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-                disabled={formStatus === 'submitting'}
-              >
+                disabled={formStatus === 'submitting'}>
                 {formStatus === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
               {formStatus === 'success' && (
@@ -128,8 +126,7 @@ const Contact: React.FC = () => {
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen={true}
-                  loading="lazy"
-                ></iframe>
+                  loading="lazy"></iframe>
               </div>
             </div>
           </div>

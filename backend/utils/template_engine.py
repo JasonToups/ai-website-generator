@@ -212,11 +212,15 @@ def create_project_variables(project_metadata: Dict[str, Any]) -> Dict[str, Any]
 
 # Template file mappings (template name -> output file path)
 TEMPLATE_MAPPINGS = {
+    'package.json.template': 'package.json',
     'index.html.template': 'index.html',
     'main.tsx.template': 'src/main.tsx',
     'index.css.template': 'src/index.css',
     'vite.config.ts.template': 'vite.config.ts',
-    'tsconfig.json.template': 'tsconfig.json'
+    'tsconfig.json.template': 'tsconfig.json',
+    'tsconfig.node.json.template': 'tsconfig.node.json',
+    'tailwind.config.js.template': 'tailwind.config.js',
+    'postcss.config.js.template': 'postcss.config.js'
 }
 
 

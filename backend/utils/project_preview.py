@@ -301,10 +301,88 @@ class ProjectPreviewManager:
             return False
     
     def _start_server(self, project_id: str, project_path: Path, port: int) -> Dict[str, Any]:
-        """Start a static file server for the project."""
+        """Start a server for the project (Vite dev server or static server)."""
+        try:
+            # Check if this is a Vite project
+            if self._is_vite_project(project_path):
+                return self._start_vite_server(project_id, project_path, port)
+            else:
+                return self._start_static_server(project_id, project_path, port)
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    def _is_vite_project(self, project_path: Path) -> bool:
+        """Check if this is a Vite project."""
+        try:
+            package_json_path = project_path / "package.json"
+            if not package_json_path.exists():
+                return False
+            
+            with open(package_json_path, 'r') as f:
+                package_data = json.load(f)
+            
+            # Check for Vite in devDependencies and vite script
+            has_vite_dep = 'vite' in package_data.get('devDependencies', {})
+            has_vite_script = 'vite' in package_data.get('scripts', {}).get('dev', '')
+            
+            return has_vite_dep and has_vite_script
+            
+        except Exception:
+            return False
+    
+    def _start_vite_server(self, project_id: str, project_path: Path, port: int) -> Dict[str, Any]:
+        """Start a Vite development server."""
+        try:
+            # Check if node_modules exists, if not run npm install
+            node_modules_path = project_path / "node_modules"
+            if not node_modules_path.exists():
+                print(f"Installing dependencies for project {project_id}...")
+                install_process = subprocess.run(
+                    ["npm", "install"],
+                    cwd=str(project_path),
+                    capture_output=True,
+                    text=True,
+                    timeout=120  # 2 minute timeout
+                )
+                
+                if install_process.returncode != 0:
+                    return {
+                        'success': False,
+                        'error': f"npm install failed: {install_process.stderr}"
+                    }
+            
+            # Update vite.config.ts to use the specified port
+            self._update_vite_config_port(project_path, port)
+            
+            # Start Vite dev server
+            process = subprocess.Popen(
+                ["npm", "run", "dev"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                cwd=str(project_path),
+                env={**os.environ, 'PORT': str(port)}
+            )
+            
+            return {
+                'success': True,
+                'process': process,
+                'server_type': 'vite'
+            }
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    def _start_static_server(self, project_id: str, project_path: Path, port: int) -> Dict[str, Any]:
+        """Start a static file server for non-Vite projects."""
         try:
             # Create a simple HTTP server using Python
-            # FIXED: Use current directory (.) since we set cwd to project_path
             server_script = f"""
 import http.server
 import socketserver
@@ -369,16 +447,17 @@ except Exception as e:
             
             # Start the server process with cwd set to project directory
             process = subprocess.Popen(
-                [sys.executable, f"preview_server_{port}.py"],  # Use relative path
+                [sys.executable, f"preview_server_{port}.py"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
-                cwd=str(project_path)  # Set working directory to project path
+                cwd=str(project_path)
             )
             
             return {
                 'success': True,
                 'process': process,
-                'script_path': str(script_path)
+                'script_path': str(script_path),
+                'server_type': 'static'
             }
             
         except Exception as e:
@@ -386,6 +465,34 @@ except Exception as e:
                 'success': False,
                 'error': str(e)
             }
+    
+    def _update_vite_config_port(self, project_path: Path, port: int) -> None:
+        """Update vite.config.ts to use the specified port."""
+        try:
+            vite_config_path = project_path / "vite.config.ts"
+            if vite_config_path.exists():
+                with open(vite_config_path, 'r') as f:
+                    content = f.read()
+                
+                # Update the port in the config
+                import re
+                # Replace existing port or add it
+                if 'port:' in content:
+                    content = re.sub(r'port:\s*\d+', f'port: {port}', content)
+                else:
+                    # Add port to server config
+                    content = re.sub(
+                        r'server:\s*{([^}]*)}',
+                        f'server: {{\\1\n    port: {port},\n  }}',
+                        content
+                    )
+                
+                with open(vite_config_path, 'w') as f:
+                    f.write(content)
+                    
+        except Exception as e:
+            # If we can't update the config, that's okay, Vite will use env PORT
+            pass
     
     def _cleanup_preview(self, project_id: str) -> None:
         """Clean up preview resources."""

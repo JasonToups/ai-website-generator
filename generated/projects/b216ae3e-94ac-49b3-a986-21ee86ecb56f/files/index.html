@@ -3,223 +3,594 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PhotoLens - Photographer Portfolio</title>
+    <title>Photographer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* Basic styles for the React components */
-      body {
-        margin: 0;
-        font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      /* Simple demo content since we can't run React in static mode */
-      .demo-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .hero-section {
-        background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-        color: white;
-        padding: 80px 20px;
-        text-align: center;
-      }
-
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        margin: 40px 0;
-      }
-
-      .gallery-item {
-        height: 200px;
-        background: #f3f4f6;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #6b7280;
-      }
-    </style>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <div id="root">
-      <!-- Static demo content for preview -->
-      <nav style="background: white; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 1rem 0">
-        <div
-          style="
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-          ">
-          <h1 style="color: #3b82f6; font-size: 1.5rem; font-weight: bold; margin: 0">PhotoLens</h1>
-          <div style="display: flex; gap: 20px">
-            <a href="#" style="color: #374151; text-decoration: none">Home</a>
-            <a href="#" style="color: #374151; text-decoration: none">About</a>
-            <a href="#" style="color: #374151; text-decoration: none">Gallery</a>
-            <a href="#" style="color: #374151; text-decoration: none">Contact</a>
-          </div>
-        </div>
-      </nav>
+    <div id="root"></div>
+    <script type="text/babel" data-type="module">
+      const { useState } = React;
 
-      <div class="hero-section">
-        <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem">
-          Capturing moments <span style="color: #3b82f6">that last forever</span>
-        </h1>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9">
-          Welcome to PhotoLens, where we transform ordinary moments into extraordinary memories
-          through the art of photography.
-        </p>
-        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap">
-          <button
-            style="
-              background: #3b82f6;
-              color: white;
-              padding: 12px 24px;
-              border: none;
-              border-radius: 6px;
-              font-weight: bold;
-              cursor: pointer;
-            ">
-            View Gallery
-          </button>
-          <button
-            style="
-              background: white;
-              color: #3b82f6;
-              padding: 12px 24px;
-              border: none;
-              border-radius: 6px;
-              font-weight: bold;
-              cursor: pointer;
-            ">
-            Contact Us
-          </button>
-        </div>
-      </div>
+      // Navbar Component
+      function Navbar() {
+        const [isOpen, setIsOpen] = useState(false);
 
-      <div class="demo-content">
-        <section style="padding: 60px 0">
-          <h2 style="font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 2rem">
-            About the Photographer
-          </h2>
-          <div
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center">
-            <div>
-              <p style="color: #6b7280; line-height: 1.6; margin-bottom: 1rem">
-                With over 10 years of experience in capturing life's most precious moments, I've
-                developed a keen eye for detail and a passion for storytelling through imagery.
-              </p>
-              <p style="color: #6b7280; line-height: 1.6">
-                I specialize in portrait, landscape, and event photography, always striving to
-                capture the essence and emotion of each unique moment.
-              </p>
-            </div>
-            <div
-              style="
-                height: 300px;
-                background: #f3f4f6;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #6b7280;
-              ">
-              Photographer Image
-            </div>
-          </div>
-        </section>
+        const toggleMenu = () => {
+          setIsOpen(!isOpen);
+        };
 
-        <section style="padding: 60px 0; background: #f9fafb">
-          <h2 style="font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 2rem">
-            Photo Gallery
-          </h2>
-          <div style="text-align: center; margin-bottom: 2rem">
-            <button
-              style="
-                margin: 0 10px;
-                padding: 8px 16px;
-                background: #3b82f6;
-                color: white;
-                border: none;
-                border-radius: 4px;
-              ">
-              All
-            </button>
-            <button
-              style="
-                margin: 0 10px;
-                padding: 8px 16px;
-                background: white;
-                color: #3b82f6;
-                border: 1px solid #3b82f6;
-                border-radius: 4px;
-              ">
-              Portraits
-            </button>
-            <button
-              style="
-                margin: 0 10px;
-                padding: 8px 16px;
-                background: white;
-                color: #3b82f6;
-                border: 1px solid #3b82f6;
-                border-radius: 4px;
-              ">
-              Landscapes
-            </button>
-            <button
-              style="
-                margin: 0 10px;
-                padding: 8px 16px;
-                background: white;
-                color: #3b82f6;
-                border: 1px solid #3b82f6;
-                border-radius: 4px;
-              ">
-              Events
-            </button>
-          </div>
-          <div class="gallery-grid">
-            <div class="gallery-item">Portrait Photo 1</div>
-            <div class="gallery-item">Landscape Photo 1</div>
-            <div class="gallery-item">Event Photo 1</div>
-            <div class="gallery-item">Portrait Photo 2</div>
-            <div class="gallery-item">Landscape Photo 2</div>
-            <div class="gallery-item">Event Photo 2</div>
-          </div>
-        </section>
-      </div>
+        const scrollToSection = (sectionId) => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+          setIsOpen(false);
+        };
 
-      <footer style="background: #1f2937; color: white; padding: 40px 0; text-align: center">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px">
-          <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem">PhotoLens</h3>
-          <p style="opacity: 0.8; margin-bottom: 2rem">Capturing moments that last forever</p>
-          <p style="opacity: 0.6">&copy; 2023 PhotoLens. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+        return React.createElement(
+          'nav',
+          { className: 'bg-white shadow-md' },
+          React.createElement(
+            'div',
+            { className: 'container mx-auto px-4' },
+            React.createElement(
+              'div',
+              { className: 'flex items-center justify-between h-16' },
+              React.createElement(
+                'div',
+                { className: 'flex items-center' },
+                React.createElement(
+                  'a',
+                  { href: '#', className: 'text-2xl font-bold text-blue-500' },
+                  'PhotoLens'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'hidden md:block' },
+                React.createElement(
+                  'div',
+                  { className: 'ml-10 flex items-baseline space-x-4' },
+                  React.createElement(
+                    'button',
+                    {
+                      onClick: () => scrollToSection('hero'),
+                      className:
+                        'text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium',
+                    },
+                    'Home'
+                  ),
+                  React.createElement(
+                    'button',
+                    {
+                      onClick: () => scrollToSection('about'),
+                      className:
+                        'text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium',
+                    },
+                    'About'
+                  ),
+                  React.createElement(
+                    'button',
+                    {
+                      onClick: () => scrollToSection('gallery'),
+                      className:
+                        'text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium',
+                    },
+                    'Gallery'
+                  ),
+                  React.createElement(
+                    'button',
+                    {
+                      onClick: () => scrollToSection('contact'),
+                      className:
+                        'text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-sm font-medium',
+                    },
+                    'Contact'
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
 
-    <!-- Note: This is a static preview. The actual React app would be rendered here -->
-    <script>
-      console.log('PhotoLens Portfolio - Static Preview Mode');
-      console.log('React components available in src/ directory:');
-      console.log('- App.tsx (Main application)');
-      console.log('- components/Navbar.tsx');
-      console.log('- components/Hero.tsx');
-      console.log('- components/About.tsx');
-      console.log('- components/Gallery.tsx');
-      console.log('- components/Contact.tsx');
-      console.log('- components/Footer.tsx');
+      // Hero Component
+      function Hero() {
+        const scrollToSection = (sectionId) => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        };
+
+        return React.createElement(
+          'div',
+          { id: 'hero', className: 'relative bg-gray-900 overflow-hidden' },
+          React.createElement(
+            'div',
+            { className: 'max-w-7xl mx-auto' },
+            React.createElement(
+              'div',
+              {
+                className:
+                  'relative z-10 pb-8 bg-gray-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32',
+              },
+              React.createElement(
+                'main',
+                {
+                  className:
+                    'mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28',
+                },
+                React.createElement(
+                  'div',
+                  { className: 'sm:text-center lg:text-left' },
+                  React.createElement(
+                    'h1',
+                    {
+                      className:
+                        'text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl',
+                    },
+                    React.createElement(
+                      'span',
+                      { className: 'block xl:inline' },
+                      'Capturing moments'
+                    ),
+                    ' ',
+                    React.createElement(
+                      'span',
+                      { className: 'block text-blue-500 xl:inline' },
+                      'that last forever'
+                    )
+                  ),
+                  React.createElement(
+                    'p',
+                    {
+                      className:
+                        'mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0',
+                    },
+                    'Welcome to PhotoLens, where we transform ordinary moments into extraordinary memories through the art of photography.'
+                  ),
+                  React.createElement(
+                    'div',
+                    { className: 'mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start' },
+                    React.createElement(
+                      'div',
+                      { className: 'rounded-md shadow' },
+                      React.createElement(
+                        'button',
+                        {
+                          onClick: () => scrollToSection('gallery'),
+                          className:
+                            'w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 md:py-4 md:text-lg md:px-10',
+                        },
+                        'View Gallery'
+                      )
+                    ),
+                    React.createElement(
+                      'div',
+                      { className: 'mt-3 sm:mt-0 sm:ml-3' },
+                      React.createElement(
+                        'button',
+                        {
+                          onClick: () => scrollToSection('contact'),
+                          className:
+                            'w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-500 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10',
+                        },
+                        'Contact Us'
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2' },
+            React.createElement('img', {
+              className: 'h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full',
+              src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80',
+              alt: 'Photographer in action',
+            })
+          )
+        );
+      }
+
+      // About Component
+      function About() {
+        return React.createElement(
+          'section',
+          { id: 'about', className: 'bg-white py-12' },
+          React.createElement(
+            'div',
+            { className: 'container mx-auto px-4' },
+            React.createElement(
+              'div',
+              { className: 'flex flex-wrap items-center' },
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/2 mb-8 md:mb-0' },
+                React.createElement(
+                  'h2',
+                  { className: 'text-3xl font-bold mb-4' },
+                  'About the Photographer'
+                ),
+                React.createElement(
+                  'p',
+                  { className: 'text-gray-700 mb-4' },
+                  "With over 10 years of experience in capturing life's most precious moments, I've developed a keen eye for detail and a passion for storytelling through imagery. My journey in photography began as a hobby and quickly blossomed into a fulfilling career."
+                ),
+                React.createElement(
+                  'p',
+                  { className: 'text-gray-700 mb-4' },
+                  'I specialize in portrait, landscape, and event photography, always striving to capture the essence and emotion of each unique moment. My work has been featured in various publications and exhibitions, earning recognition for its creativity and technical excellence.'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/2' },
+                React.createElement('img', {
+                  src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
+                  alt: 'Photographer',
+                  className: 'rounded-lg shadow-lg',
+                })
+              )
+            )
+          )
+        );
+      }
+
+      // Gallery Component
+      function Gallery() {
+        const [filter, setFilter] = useState('all');
+
+        const images = [
+          {
+            id: 1,
+            src: 'https://source.unsplash.com/random/800x600?portrait',
+            category: 'portrait',
+          },
+          {
+            id: 2,
+            src: 'https://source.unsplash.com/random/800x600?landscape',
+            category: 'landscape',
+          },
+          { id: 3, src: 'https://source.unsplash.com/random/800x600?event', category: 'event' },
+          {
+            id: 4,
+            src: 'https://source.unsplash.com/random/800x600?portrait',
+            category: 'portrait',
+          },
+          {
+            id: 5,
+            src: 'https://source.unsplash.com/random/800x600?landscape',
+            category: 'landscape',
+          },
+          { id: 6, src: 'https://source.unsplash.com/random/800x600?event', category: 'event' },
+        ];
+
+        const filteredImages =
+          filter === 'all' ? images : images.filter((img) => img.category === filter);
+
+        return React.createElement(
+          'section',
+          { id: 'gallery', className: 'bg-gray-100 py-12' },
+          React.createElement(
+            'div',
+            { className: 'container mx-auto px-4' },
+            React.createElement(
+              'h2',
+              { className: 'text-3xl font-bold mb-8 text-center' },
+              'Photo Gallery'
+            ),
+            React.createElement(
+              'div',
+              { className: 'flex justify-center mb-8' },
+              React.createElement(
+                'button',
+                {
+                  className: `mx-2 px-4 py-2 rounded ${
+                    filter === 'all' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+                  }`,
+                  onClick: () => setFilter('all'),
+                },
+                'All'
+              ),
+              React.createElement(
+                'button',
+                {
+                  className: `mx-2 px-4 py-2 rounded ${
+                    filter === 'portrait' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+                  }`,
+                  onClick: () => setFilter('portrait'),
+                },
+                'Portraits'
+              ),
+              React.createElement(
+                'button',
+                {
+                  className: `mx-2 px-4 py-2 rounded ${
+                    filter === 'landscape' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+                  }`,
+                  onClick: () => setFilter('landscape'),
+                },
+                'Landscapes'
+              ),
+              React.createElement(
+                'button',
+                {
+                  className: `mx-2 px-4 py-2 rounded ${
+                    filter === 'event' ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
+                  }`,
+                  onClick: () => setFilter('event'),
+                },
+                'Events'
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' },
+              filteredImages.map((image) =>
+                React.createElement(
+                  'div',
+                  { key: image.id, className: 'relative overflow-hidden rounded-lg shadow-lg' },
+                  React.createElement('img', {
+                    src: image.src,
+                    alt: `Gallery image ${image.id}`,
+                    className:
+                      'w-full h-64 object-cover transform hover:scale-105 transition duration-300',
+                  }),
+                  React.createElement(
+                    'div',
+                    {
+                      className:
+                        'absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-300',
+                    },
+                    React.createElement(
+                      'button',
+                      { className: 'bg-white text-gray-800 font-bold py-2 px-4 rounded' },
+                      'View'
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+
+      // Contact Component
+      function Contact() {
+        const [formData, setFormData] = useState({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+        });
+
+        const [formStatus, setFormStatus] = useState('idle');
+
+        const handleChange = (e) => {
+          const { name, value } = e.target;
+          setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+          }));
+        };
+
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          setFormStatus('submitting');
+
+          // Simulate API call
+          try {
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            setFormStatus('success');
+            setFormData({ name: '', email: '', phone: '', message: '' });
+          } catch (error) {
+            setFormStatus('error');
+          }
+        };
+
+        return React.createElement(
+          'section',
+          { id: 'contact', className: 'bg-gray-100 py-20' },
+          React.createElement(
+            'div',
+            { className: 'container mx-auto px-4' },
+            React.createElement(
+              'h2',
+              { className: 'text-3xl font-bold mb-8 text-center' },
+              'Contact Us'
+            ),
+            React.createElement(
+              'div',
+              { className: 'flex flex-wrap -mx-4' },
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/2 px-4 mb-8 md:mb-0' },
+                React.createElement(
+                  'form',
+                  { onSubmit: handleSubmit },
+                  React.createElement(
+                    'div',
+                    { className: 'mb-4' },
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'name', className: 'block text-gray-700 font-bold mb-2' },
+                      'Name'
+                    ),
+                    React.createElement('input', {
+                      type: 'text',
+                      id: 'name',
+                      name: 'name',
+                      value: formData.name,
+                      onChange: handleChange,
+                      className:
+                        'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+                      required: true,
+                    })
+                  ),
+                  React.createElement(
+                    'div',
+                    { className: 'mb-4' },
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'email', className: 'block text-gray-700 font-bold mb-2' },
+                      'Email'
+                    ),
+                    React.createElement('input', {
+                      type: 'email',
+                      id: 'email',
+                      name: 'email',
+                      value: formData.email,
+                      onChange: handleChange,
+                      className:
+                        'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+                      required: true,
+                    })
+                  ),
+                  React.createElement(
+                    'div',
+                    { className: 'mb-4' },
+                    React.createElement(
+                      'label',
+                      { htmlFor: 'message', className: 'block text-gray-700 font-bold mb-2' },
+                      'Message'
+                    ),
+                    React.createElement('textarea', {
+                      id: 'message',
+                      name: 'message',
+                      value: formData.message,
+                      onChange: handleChange,
+                      rows: 4,
+                      className:
+                        'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+                      required: true,
+                    })
+                  ),
+                  React.createElement(
+                    'button',
+                    {
+                      type: 'submit',
+                      className:
+                        'bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300',
+                      disabled: formStatus === 'submitting',
+                    },
+                    formStatus === 'submitting' ? 'Sending...' : 'Send Message'
+                  ),
+                  formStatus === 'success' &&
+                    React.createElement(
+                      'p',
+                      { className: 'text-green-500 mt-4' },
+                      'Message sent successfully!'
+                    ),
+                  formStatus === 'error' &&
+                    React.createElement(
+                      'p',
+                      { className: 'text-red-500 mt-4' },
+                      'An error occurred. Please try again.'
+                    )
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/2 px-4' },
+                React.createElement(
+                  'div',
+                  { className: 'bg-white rounded-lg shadow-lg p-6' },
+                  React.createElement(
+                    'h3',
+                    { className: 'text-xl font-bold mb-4' },
+                    'Contact Information'
+                  ),
+                  React.createElement(
+                    'p',
+                    { className: 'mb-2' },
+                    React.createElement('strong', {}, 'Email:'),
+                    ' info@photolens.com'
+                  ),
+                  React.createElement(
+                    'p',
+                    { className: 'mb-2' },
+                    React.createElement('strong', {}, 'Phone:'),
+                    ' +1 (123) 456-7890'
+                  ),
+                  React.createElement(
+                    'p',
+                    { className: 'mb-4' },
+                    React.createElement('strong', {}, 'Address:'),
+                    ' 123 Photography St, Lens City, PC 12345'
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+
+      // Footer Component
+      function Footer() {
+        return React.createElement(
+          'footer',
+          { className: 'bg-gray-800 text-white py-8' },
+          React.createElement(
+            'div',
+            { className: 'container mx-auto px-4' },
+            React.createElement(
+              'div',
+              { className: 'flex flex-wrap justify-between' },
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/3 mb-6 md:mb-0' },
+                React.createElement('h3', { className: 'text-2xl font-bold mb-4' }, 'PhotoLens'),
+                React.createElement(
+                  'p',
+                  { className: 'mb-4' },
+                  'Capturing moments that last forever'
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'w-full md:w-1/3' },
+                React.createElement('h4', { className: 'text-lg font-bold mb-4' }, 'Contact Info'),
+                React.createElement(
+                  'p',
+                  { className: 'mb-2' },
+                  '123 Photography St, Lens City, PC 12345'
+                ),
+                React.createElement('p', { className: 'mb-2' }, 'Phone: +1 (123) 456-7890'),
+                React.createElement('p', { className: 'mb-2' }, 'Email: info@photolens.com')
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'border-t border-gray-700 mt-8 pt-8 text-center' },
+              React.createElement('p', {}, '© 2023 PhotoLens. All rights reserved.')
+            )
+          )
+        );
+      }
+
+      // Main App Component
+      function App() {
+        return React.createElement(
+          'div',
+          { className: 'font-open-sans text-gray-800' },
+          React.createElement(Navbar),
+          React.createElement(Hero),
+          React.createElement(About),
+          React.createElement(Gallery),
+          React.createElement(Contact),
+          React.createElement(Footer)
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(React.createElement(App));
     </script>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

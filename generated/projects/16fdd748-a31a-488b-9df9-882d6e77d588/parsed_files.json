@@ -1,0 +1,243 @@
+{
+  "project_id": "16fdd748-a31a-488b-9df9-882d6e77d588",
+  "parsing_results": {
+    "file_count": 10,
+    "success": true,
+    "parsing_errors": []
+  },
+  "project_structure": {
+    "name": "project-16fdd748-a31a-488b-9df9-882d6e77d588",
+    "type": "folder",
+    "children": [
+      {
+        "name": "src",
+        "type": "folder",
+        "children": [
+          {
+            "name": "components",
+            "type": "folder",
+            "children": [
+              {
+                "name": "Footer.tsx",
+                "type": "file",
+                "path": "src/components/Footer.tsx",
+                "extension": ".tsx",
+                "size": 298,
+                "is_valid": true
+              },
+              {
+                "name": "Home.tsx",
+                "type": "file",
+                "path": "src/components/Home.tsx",
+                "extension": ".tsx",
+                "size": 506,
+                "is_valid": true
+              },
+              {
+                "name": "Lists.tsx",
+                "type": "file",
+                "path": "src/components/Lists.tsx",
+                "extension": ".tsx",
+                "size": 1696,
+                "is_valid": true
+              },
+              {
+                "name": "Navbar.tsx",
+                "type": "file",
+                "path": "src/components/Navbar.tsx",
+                "extension": ".tsx",
+                "size": 2440,
+                "is_valid": true
+              },
+              {
+                "name": "Profile.tsx",
+                "type": "file",
+                "path": "src/components/Profile.tsx",
+                "extension": ".tsx",
+                "size": 2263,
+                "is_valid": true
+              }
+            ]
+          },
+          {
+            "name": "App.tsx",
+            "type": "file",
+            "path": "src/App.tsx",
+            "extension": ".tsx",
+            "size": 793,
+            "is_valid": true
+          },
+          {
+            "name": "index.css",
+            "type": "file",
+            "path": "src/index.css",
+            "extension": ".css",
+            "size": 94,
+            "is_valid": true
+          },
+          {
+            "name": "main.tsx",
+            "type": "file",
+            "path": "src/main.tsx",
+            "extension": ".tsx",
+            "size": 245,
+            "is_valid": true
+          }
+        ]
+      },
+      {
+        "name": "package.json",
+        "type": "file",
+        "path": "package.json",
+        "extension": ".json",
+        "size": 578,
+        "is_valid": true
+      },
+      {
+        "name": "README.md",
+        "type": "file",
+        "path": "README.md",
+        "extension": ".md",
+        "size": 498,
+        "is_valid": true
+      }
+    ]
+  },
+  "created_files": [
+    {
+      "path": "src/App.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/App.tsx",
+      "size": 793,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/components/Navbar.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/components/Navbar.tsx",
+      "size": 2440,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/components/Home.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/components/Home.tsx",
+      "size": 506,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/components/Lists.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/components/Lists.tsx",
+      "size": 1696,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/components/Profile.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/components/Profile.tsx",
+      "size": 2263,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/components/Footer.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/components/Footer.tsx",
+      "size": 298,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "src/main.tsx",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/main.tsx",
+      "size": 240,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "src/index.css",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/src/index.css",
+      "size": 451,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "package.json",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/package.json",
+      "size": 606,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "README.md",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/README.md",
+      "size": 498,
+      "is_valid": true,
+      "template_generated": false
+    },
+    {
+      "path": "index.html",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/index.html",
+      "size": 331,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "postcss.config.js",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/postcss.config.js",
+      "size": 141,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "tailwind.config.js",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/tailwind.config.js",
+      "size": 182,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "tsconfig.json",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/tsconfig.json",
+      "size": 562,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "tsconfig.node.json",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/tsconfig.node.json",
+      "size": 253,
+      "is_valid": true,
+      "template_generated": true
+    },
+    {
+      "path": "vite.config.ts",
+      "full_path": "generated/projects/16fdd748-a31a-488b-9df9-882d6e77d588/files/vite.config.ts",
+      "size": 185,
+      "is_valid": true,
+      "template_generated": true
+    }
+  ],
+  "created_directories": [
+    "src/components",
+    "src"
+  ],
+  "file_types": {
+    ".tsx": 7,
+    ".css": 1,
+    ".json": 3,
+    ".md": 1,
+    ".html": 1,
+    ".js": 2,
+    ".ts": 1
+  },
+  "total_size": 11445,
+  "creation_timestamp": "2025-06-02T13:02:36.192534",
+  "template_metadata": {
+    "templates_injected": 9,
+    "template_variables": {
+      "PROJECT_TITLE": "Project 16fdd748-a31a-488b-9df9-882d6e77d588",
+      "PROJECT_NAME": "project-16fdd748-a31a-488b-9df9-882d6e77d588",
+      "CREATION_DATE": "2025-06-02"
+    }
+  }
+}

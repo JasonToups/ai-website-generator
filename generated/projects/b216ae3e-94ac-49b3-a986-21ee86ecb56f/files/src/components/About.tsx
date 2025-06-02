@@ -6,16 +6,22 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ fullPage = false }) => {
   return (
-    <section className={`bg-white ${fullPage ? 'py-20' : 'py-12'}`}>
+    <section id="about" className={`bg-white ${fullPage ? 'py-20' : 'py-12'}`}>
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center">
           <div className="w-full md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-3xl font-bold mb-4">About the Photographer</h2>
             <p className="text-gray-700 mb-4">
-              With over 10 years of experience in capturing life's most precious moments, I've developed a keen eye for detail and a passion for storytelling through imagery. My journey in photography began as a hobby and quickly blossomed into a fulfilling career.
+              With over 10 years of experience in capturing life's most precious moments, I've
+              developed a keen eye for detail and a passion for storytelling through imagery. My
+              journey in photography began as a hobby and quickly blossomed into a fulfilling
+              career.
             </p>
             <p className="text-gray-700 mb-4">
-              I specialize in portrait, landscape, and event photography, always striving to capture the essence and emotion of each unique moment. My work has been featured in various publications and exhibitions, earning recognition for its creativity and technical excellence.
+              I specialize in portrait, landscape, and event photography, always striving to capture
+              the essence and emotion of each unique moment. My work has been featured in various
+              publications and exhibitions, earning recognition for its creativity and technical
+              excellence.
             </p>
             {fullPage && (
               <>

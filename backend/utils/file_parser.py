@@ -54,28 +54,46 @@ class ProjectFileParser:
             }
     
     def extract_file_blocks(self) -> List[Dict]:
-        """Extract numbered file blocks from crew output text."""
+        """Extract file blocks from crew output text."""
         file_blocks = []
         
-        # Regex pattern to match numbered files with code blocks
-        # Pattern: number. filepath\n\n```language\ncontent\n```
-        pattern = r'(\d+)\.\s+([^\n]+)\n\n```(\w+)\n(.*?)\n```'
+        # Try multiple patterns to handle different crew output formats
+        patterns = [
+            # Pattern 1: Numbered files (legacy format)
+            r'(\d+)\.\s+([^\n]+)\n\n```(\w+)\n(.*?)\n```',
+            # Pattern 2: File path with colon (new format)
+            r'([^\n]+\.[a-zA-Z]+):\n\n```(\w+)\n(.*?)\n```'
+        ]
         
-        matches = re.findall(pattern, self.crew_output, re.DOTALL)
-        
-        for match in matches:
-            file_number, file_path, language, content = match
+        for pattern_idx, pattern in enumerate(patterns):
+            matches = re.findall(pattern, self.crew_output, re.DOTALL)
             
-            file_blocks.append({
-                'number': int(file_number),
-                'path': file_path.strip(),
-                'language': language.strip(),
-                'content': content.strip(),
-                'raw_match': match
-            })
-        
-        # Sort by file number to maintain order
-        file_blocks.sort(key=lambda x: x['number'])
+            if matches:
+                print(f"Using pattern {pattern_idx + 1}: found {len(matches)} matches")
+                
+                for match_idx, match in enumerate(matches):
+                    if pattern_idx == 0:  # Numbered format
+                        file_number, file_path, language, content = match
+                        file_blocks.append({
+                            'number': int(file_number),
+                            'path': file_path.strip(),
+                            'language': language.strip(),
+                            'content': content.strip(),
+                            'raw_match': match
+                        })
+                    else:  # Colon format
+                        file_path, language, content = match
+                        file_blocks.append({
+                            'number': match_idx + 1,  # Assign sequential numbers
+                            'path': file_path.strip(),
+                            'language': language.strip(),
+                            'content': content.strip(),
+                            'raw_match': match
+                        })
+                
+                # Sort by file number to maintain order
+                file_blocks.sort(key=lambda x: x['number'])
+                break  # Use first pattern that finds matches
         
         return file_blocks
     
