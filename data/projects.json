@@ -1,19 +1,4 @@
 {
-  "9e5c696f-96e4-445a-8bd9-a909b0b37a33": {
-    "id": "9e5c696f-96e4-445a-8bd9-a909b0b37a33",
-    "description": "A modern e-commerce website for selling handmade jewelry with product galleries, shopping cart, and customer reviews",
-    "requirements": [],
-    "style_preferences": {},
-    "status": "completed",
-    "progress": 100,
-    "current_step": "Website generation completed successfully",
-    "files_generated": [
-      "crew_output.txt"
-    ],
-    "errors": [],
-    "created_at": "2025-05-28T18:12:25.899424",
-    "updated_at": "2025-05-28T18:14:05.788443"
-  },
   "b216ae3e-94ac-49b3-a986-21ee86ecb56f": {
     "id": "b216ae3e-94ac-49b3-a986-21ee86ecb56f",
     "description": "A simple portfolio website for a photographer",
